@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="面试," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="想到啥写啥~ 还有很多嫌麻烦没写的….">
+<meta name="keywords" content="面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试准备-java部分">
+<meta property="og:url" content="http://yoursite.com/2018/03/05/面试准备-java部分/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="想到啥写啥~ 还有很多嫌麻烦没写的….">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/05/面试准备-java部分/throwable.jpg">
+<meta property="og:updated_time" content="2018-03-13T12:45:17.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试准备-java部分">
+<meta name="twitter:description" content="想到啥写啥~ 还有很多嫌麻烦没写的….">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/05/面试准备-java部分/throwable.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/05/面试准备-java部分/"/>
+
+
+
+
+
+  <title>面试准备-java部分 | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/05/面试准备-java部分/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试准备-java部分</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T10:47:03+08:00">
+                2018-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>想到啥写啥~ 还有很多嫌麻烦没写的….</p>
+<a id="more"></a>
+<h3 id="java注解"><a href="#java注解" class="headerlink" title="java注解"></a>java注解</h3><p>java 5 出来的东西~</p>
+<p>注解分类(此处根据存在时间Retention分类，也可以根据注解目标Target分类)：编译时注解，字节码注解，运行时注解，分别对应不同的阶段</p>
+<p>编译时注解：编译时期存在(.java)，字节码中不存在，由javac中的注解处理器进行处理，注解处理器见<a href="http://www.importnew.com/15246.html" target="_blank" rel="noopener">http://www.importnew.com/15246.html</a></p>
+<p>字节码注解：注解保留到字节码中，当jvm加载.class文件时放弃掉~</p>
+<p>运行时注解：注解存在运行时，通过反射获取注解内容进行处理</p>
+<h3 id="java-Throwable"><a href="#java-Throwable" class="headerlink" title="java Throwable"></a>java Throwable</h3><p><img src="throwable.jpg"></p>
+<p>声明一下 try catch可以捕捉Throwable子类 并非只能捕捉Exception</p>
+<p>java Exception可以分为可查异常(checked exceptions)和非可查异常(unchecked exceptions)</p>
+<p>可查异常（编译器要求必须处置的异常）：正确的程序在运行中，很容易出现的、情理可容的异常状况。可查异常虽然是异常状况，但在一定程度上它的发生是可以预计的，而且一旦发生这种异常状况，就必须采取某种方式进行处理。 </p>
+<p>除了RuntimeException及其子类以外，其他的Exception类及其子类都属于可查异常。这种异常的特点是Java编译器会检查它，也就是说，当程序中可能出现这类异常，要么用try-catch语句捕获它，要么用throws子句声明抛出它，否则编译不会通过。</p>
+<h3 id="CGlib和JDKProxy"><a href="#CGlib和JDKProxy" class="headerlink" title="CGlib和JDKProxy"></a>CGlib和JDKProxy</h3><p>用于动态代理。</p>
+<p>下文两者的对比来自<a href="http://blog.csdn.net/neosmith/article/details/51072840" target="_blank" rel="noopener">http://blog.csdn.net/neosmith/article/details/51072840</a></p>
+<p><strong>JDKProxy</strong>：新生成一个类 继承Proxy接口和需要代理类的接口，从而实现代理。</p>
+<p>优点</p>
+<ul>
+<li>不依赖第三方jar包, 使用方便</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>只能代理实现了接口的类</li>
+<li>执行速度较慢</li>
+</ul>
+<p><strong>CGlib</strong>：字节码增强，直接修改字节码生成一个代理类</p>
+<p>优点</p>
+<ul>
+<li>由于是动态生成字节码实现代理</li>
+<li>可以代理没有实现接口的对象</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>不能代理<code>final</code>类</li>
+</ul>
+<p>适用场景</p>
+<p>测试代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Aop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CGLibProxy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">createProxy</span><span class="params">(<span class="keyword">final</span> Object object)</span></span>&#123;</span><br><span class="line">        Enhancer enhancer=<span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(object.getClass());</span><br><span class="line">        enhancer.setCallback(<span class="keyword">new</span> MethodInterceptor() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"CGLib before"</span>);</span><br><span class="line">              <span class="comment">//下一条语句同样的结果</span></span><br><span class="line">			 <span class="comment">//Object temp = methodProxy.invokeSuper(o,objects);</span></span><br><span class="line">                Object temp = method.invoke(object,objects);</span><br><span class="line">                System.out.println(<span class="string">"CGlib after"</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">boolean</span> a = o <span class="keyword">instanceof</span> Proxy;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">boolean</span> b = o <span class="keyword">instanceof</span> ProxyInterface;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">boolean</span> c = o <span class="keyword">instanceof</span> ProxyObject;</span><br><span class="line">                System.out.println(<span class="string">"JDK"</span> + a + <span class="string">"--"</span> + b + <span class="string">"--"</span> + c);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Aop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JDKProxy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">createProxy</span><span class="params">(<span class="keyword">final</span> Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(o.getClass().getClassLoader(), o.getClass().getInterfaces()</span><br><span class="line">                , <span class="keyword">new</span> InvocationHandler() &#123;</span><br><span class="line">                    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                        System.out.println(<span class="string">"JDKProxy start"</span>);</span><br><span class="line">                        Object result = method.invoke(o, args);</span><br><span class="line">                        System.out.println(<span class="string">"JDKProxy end"</span>);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">boolean</span> a = proxy <span class="keyword">instanceof</span> Proxy;</span><br><span class="line">                        <span class="keyword">boolean</span> b = proxy <span class="keyword">instanceof</span> ProxyInterface;</span><br><span class="line">                        <span class="keyword">boolean</span> c = proxy <span class="keyword">instanceof</span> ProxyObject;</span><br><span class="line">                        System.out.println(<span class="string">"JDK"</span> + a + <span class="string">"--"</span> + b + <span class="string">"--"</span> + c);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">return</span> result;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Aop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AopTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ProxyInterface jdkObject = (ProxyInterface) JDKProxy.createProxy(<span class="keyword">new</span> ProxyObject());</span><br><span class="line">        System.out.println(jdkObject.method());</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"-------------------"</span>);</span><br><span class="line"></span><br><span class="line">        ProxyObject cglibObject = (ProxyObject) CGLibProxy.createProxy(<span class="keyword">new</span> ProxyObject());</span><br><span class="line">        System.out.println(cglibObject.method());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Aop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyObject</span> <span class="keyword">implements</span> <span class="title">ProxyInterface</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"method invoke ok"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"re"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Aop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ProxyInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">method</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><p>jvm加载全过程</p>
+<p>加载，验证，准备，解析，初始化，使用</p>
+<p><strong>加载</strong>：通过一个类的全限定名来获取定义此类的二进制字节流，将字节流所代表的静态存储结构转化为方法区的运行时数据结构，在内存中生成一个代表该类的java.lang.Class对象</p>
+<p><strong>验证</strong>：确保字节流中包含的信息符合当前虚拟机的要求</p>
+<p><strong>准备</strong>：为类变量分配内存并设置类变量初始值，初始值一般为零值，被final修饰的变量会被生成ConstantValue属性，被赋值为真实值</p>
+<p><strong>解析</strong>：</p>
+<p><strong>初始化</strong>：类变量赋值等~执行\&lt;clinit>方法，\&lt;clinit>方法是由编译器自动收集类中的所有类变量的赋值动作和静态语句块(static块)中的语句合并产生</p>
+<p>系统提供3种类加载器</p>
+<p><strong>启动类加载器（Bootstrap）</strong>：虚拟机的一部分，加载存放在\&lt;JAVA_HOME>\lib目录下的类</p>
+<p><strong>扩展类加载器（Extension）</strong>：加载存放在\&lt;JAVA_HOME>\lib\ext目录下的类</p>
+<p><strong>应用程序加载器（Application）</strong>:加载用户路径(ClassPath)上的类库</p>
+<p><strong>双亲委派模型</strong>：要求除了顶层的类加载器外，其余类加载器应该有自己的父类加载器。父子关系使用组合（Composition）关系来复用父加载器的代码。</p>
+<p>如果一个类加载器收到了类加载的请求，首先不会自己去尝试加载这个类，而是委派父类去加载，每一层都是如此，知道顶层的启动类加载器，如果父类无法进行加载（即搜索范围内没有找到所需的类），子加载器才会自己尝试加载。</p>
+<p><strong>Tomcat类加载器</strong>：</p>
+<p>tomcat目录结构中，有3组目录（/common，/shared，/server）可以存放Java类库</p>
+<p>Common类加载器：加载/common目录下存放的类库，被tomcat和所有的web应用程序共同使用</p>
+<p>Catalina类加载器：加载/server目录下存放的类库，被tomcat使用，对所有web应用程序不可见</p>
+<p>Shared类加载器：加载/shared目录下存放的类库，被web应用程序使用，tomcat不可见</p>
+<p>WebApp类加载器：加载web应用程序中/WebApp/WEB-INF目录下存放的类库，仅被该web应用程序可见</p>
+<h3 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h3><p>Java虚拟机内存模型，主要是为了屏蔽各个不同操作系统的内存访问差异，以实现Java程序在各平台能达到一致的内存访问结果。内存模型的主要目标是定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存取出变量这样的底层细节。规定所有变量都存储在主内存中，每条线程有自己的工作内存，其中保存了该线程使用到的变量的主内存副本拷贝，线程对变量的操作都必须在工作内存中运行，而不能直接对主内存进行操作。为了实现上述所说，Java定义了以下8种操作来完成</p>
+<p>lock，unlock，read，load，use，assign，store，write</p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p><a href="http://blog.csdn.net/tjiyu/article/details/53983650" target="_blank" rel="noopener">http://blog.csdn.net/tjiyu/article/details/53983650</a></p>
+<p>GC线程，收集器，GC root和引用计数</p>
+<h3 id="new和反射的区别"><a href="#new和反射的区别" class="headerlink" title="new和反射的区别"></a>new和反射的区别</h3><p>反射是动态的，在程序运行时，通过类名去寻找类的信息，从而生成对象。</p>
+<p>反射生成对象前，类应该是被加载过的，否则会报ClassNotFoundException。</p>
+<p>spring框架是事先就写好的框架，他内部的处理并不知道用户要写哪些类，因为那是以后由用他的人来定的，这时候你还能在spring内部去new吗？所以用户在用的时候才去配置文件中配置类路径，这是一个典型反射的例子。</p>
+<p>###进程间通信</p>
+<p>管道，共享内存，文件，网络，信号量</p>
+<h3 id="transient关键字"><a href="#transient关键字" class="headerlink" title="transient关键字"></a>transient关键字</h3><p>Serialable时，被该关键字修饰的变量不进行序列化</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/23/面试准备--计网基础及数据库部分/" rel="next" title="面试准备--计网基础及数据库部分">
+                <i class="fa fa-chevron-left"></i> 面试准备--计网基础及数据库部分
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/11/剑指Offer-1/" rel="prev" title="剑指Offer--1">
+                剑指Offer--1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java注解"><span class="nav-number">1.</span> <span class="nav-text">java注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-Throwable"><span class="nav-number">2.</span> <span class="nav-text">java Throwable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGlib和JDKProxy"><span class="nav-number">3.</span> <span class="nav-text">CGlib和JDKProxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器"><span class="nav-number">4.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java内存模型"><span class="nav-number">5.</span> <span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收"><span class="nav-number">6.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new和反射的区别"><span class="nav-number">7.</span> <span class="nav-text">new和反射的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transient关键字"><span class="nav-number">8.</span> <span class="nav-text">transient关键字</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

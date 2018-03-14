@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前说到有圆形头像，那自然会记录一下怎么做到点击头像，选择相机或者相册进行选择头像。 文章分为如下部分：  点击头像，弹出选择框 选择相机拍摄照片 相册选择照片 头像剪切 PhotoUtils.java">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 相册或相机选择头像">
+<meta property="og:url" content="http://yoursite.com/2017/08/15/Android-相册或相机选择头像/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="之前说到有圆形头像，那自然会记录一下怎么做到点击头像，选择相机或者相册进行选择头像。 文章分为如下部分：  点击头像，弹出选择框 选择相机拍摄照片 相册选择照片 头像剪切 PhotoUtils.java">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/08/15/Android-相册或相机选择头像/1.png">
+<meta property="og:updated_time" content="2017-08-15T16:42:12.172Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 相册或相机选择头像">
+<meta name="twitter:description" content="之前说到有圆形头像，那自然会记录一下怎么做到点击头像，选择相机或者相册进行选择头像。 文章分为如下部分：  点击头像，弹出选择框 选择相机拍摄照片 相册选择照片 头像剪切 PhotoUtils.java">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/15/Android-相册或相机选择头像/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/15/Android-相册或相机选择头像/"/>
+
+
+
+
+
+  <title>Android 相册或相机选择头像 | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/Android-相册或相机选择头像/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 相册或相机选择头像</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T17:16:23+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前说到有圆形头像，那自然会记录一下怎么做到点击头像，选择相机或者相册进行选择头像。</p>
+<p>文章分为如下部分：</p>
+<ul>
+<li>点击头像，弹出选择框</li>
+<li>选择相机拍摄照片</li>
+<li>相册选择照片</li>
+<li>头像剪切</li>
+<li>PhotoUtils.java</li>
+</ul>
+<a id="more"></a>
+<h4 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h4><p>下面的代码中，会使用带PhotoUtils中的方法，我会在注释中说明方法的作用，PhotoUtils.java完整代码会在最后贴出</p>
+<h4 id="点击头像，弹出选择框"><a href="#点击头像，弹出选择框" class="headerlink" title="点击头像，弹出选择框"></a>点击头像，弹出选择框</h4><p>主布局文件就不说了~就一个头像而已，一定要看的话，那就去上一篇<a href="https://yikai116.github.io/2017/08/14/Android-NavigationView%E5%AE%9E%E7%8E%B0%E4%BE%A7%E8%BE%B9%E6%A0%8F/" target="_blank" rel="noopener">Android-NavigationView实现侧边栏</a>中看下吧~</p>
+<p><strong>先看下弹出的选择框的布局文件layout_avatar_popup.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"#f4eeee"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:translationZ</span>=<span class="string">"2dp"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/btn_open_camera"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"50dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"#ffffff"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"拍照"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textColor</span>=<span class="string">"#626262"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">"18sp"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/btn_choose_img"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"50dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginTop</span>=<span class="string">"0.5dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"#ffffff"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"从相册中选取"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textColor</span>=<span class="string">"#626262"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">"18sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/btn_cancel"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"50dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginTop</span>=<span class="string">"12dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"#ffffff"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"取消"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textColor</span>=<span class="string">"#626262"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">"18sp"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我使用的是TextView，仅仅是因为觉得好看点而已~</p>
+<p><strong>好，接下来是弹出选择框的代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setPopupWindow</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//new一下DIalog，第二个参数是Dialog主题设置</span></span><br><span class="line">        <span class="keyword">final</span> Dialog mCameraDialog = <span class="keyword">new</span></span><br><span class="line">          Dialog(MainActivity.<span class="keyword">this</span>,R.style.BottomDialog);</span><br><span class="line">        <span class="comment">//弹出框的界面</span></span><br><span class="line">        LinearLayout root = (LinearLayout)</span><br><span class="line">        LayoutInflater.from(MainActivity.<span class="keyword">this</span>).inflate(</span><br><span class="line">                R.layout.layout_avatar_popup, <span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">//初始化视图</span></span><br><span class="line">        root.findViewById(R.id.btn_open_camera)</span><br><span class="line">          .setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//打开相机</span></span><br><span class="line">                PhotoUtils.getPhotoFromCamera(MainActivity.<span class="keyword">this</span></span><br><span class="line">                                              ,CAMERA_CODE,tempPath);</span><br><span class="line">                mCameraDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        root.findViewById(R.id.btn_choose_img)</span><br><span class="line">          .setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//打开相册</span></span><br><span class="line">                PhotoUtils.getPhotoFromAlbum(MainActivity.<span class="keyword">this</span>,ALBUM_CODE);</span><br><span class="line">                mCameraDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        root.findViewById(R.id.btn_cancel)</span><br><span class="line">          .setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                mCameraDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        mCameraDialog.setContentView(root);</span><br><span class="line">        Window dialogWindow = mCameraDialog.getWindow();</span><br><span class="line">        <span class="keyword">assert</span> dialogWindow != <span class="keyword">null</span>;</span><br><span class="line">        dialogWindow.setGravity(Gravity.BOTTOM);</span><br><span class="line">        <span class="comment">// 获取对话框当前的参数值</span></span><br><span class="line">        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); </span><br><span class="line">        <span class="comment">// 设置宽度...不设置弹窗宽度是wrap_content</span></span><br><span class="line">        lp.width = (<span class="keyword">int</span>) getResources().getDisplayMetrics().widthPixels; </span><br><span class="line">        dialogWindow.setAttributes(lp);</span><br><span class="line">        mCameraDialog.show();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>再来看看主题配置，也就是上面代码中的R.style.BottomDialog</strong></p>
+<p>在style.xml中添加如下代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name=<span class="string">"BottomDialog"</span> parent=<span class="string">"@android:style/Theme.Dialog"</span>&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 背景透明 --&gt;</span><br><span class="line">        &lt;item name="android:windowBackground"&gt;@android:color/transparent&lt;/item&gt;</span><br><span class="line">        &lt;item name="android:windowContentOverlay"&gt;@null&lt;/item&gt;</span><br><span class="line">        &lt;!-- 浮于Activity之上 --&gt;</span><br><span class="line">        &lt;item name="android:windowIsFloating"&gt;true&lt;/item&gt;</span><br><span class="line">        &lt;!-- 边框 --&gt;</span><br><span class="line">        &lt;item name="android:windowFrame"&gt;@null&lt;/item&gt;</span><br><span class="line">        &lt;!-- Dialog以外的区域模糊效果 --&gt;</span><br><span class="line">        &lt;item name="android:backgroundDimEnabled"&gt;true&lt;/item&gt;</span><br><span class="line">        &lt;!-- 无标题 --&gt;</span><br><span class="line">        &lt;item name="android:windowNoTitle"&gt;true&lt;/item&gt;</span><br><span class="line">        &lt;!-- 半透明 --&gt;</span><br><span class="line">        &lt;item name="android:windowIsTranslucent"&gt;true&lt;/item&gt;</span><br><span class="line">        &lt;!-- Dialog进入及退出动画 --&gt;</span><br><span class="line">        &lt;item name="android:windowAnimationStyle"&gt;@style/DialogAnimation&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">          </span><br><span class="line">&lt;!-- ActionSheet进出动画 --&gt;</span><br><span class="line">&lt;style name=<span class="string">"DialogAnimation"</span> parent=<span class="string">"@android:style/Animation.Dialog"</span>&gt;</span><br><span class="line">        &lt;item name="android:windowEnterAnimation"&gt;@anim/actionsheet_dialog_in&lt;/item&gt;</span><br><span class="line">        &lt;item name="android:windowExitAnimation"&gt;@anim/actionsheet_dialog_out&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>上面进出动画中，是在res文件夹下，新建一个anim文件夹，再在anim文件夹下新建actionsheet_dialog_in.xml，actionsheet_dialog_out.xml文件,分别如下代码</p>
+<p>actionsheet_dialog_in.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">translate</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:duration</span>=<span class="string">"200"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:fromYDelta</span>=<span class="string">"100%"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:toYDelta</span>=<span class="string">"0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>actionsheet_dialog_out.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">translate</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:duration</span>=<span class="string">"200"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:fromYDelta</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:toYDelta</span>=<span class="string">"100%"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>解释：</p>
+<p>​    duration是动画持续时间，以毫秒为单位</p>
+<p>​    fromYDelta是Y方向上起点位置</p>
+<p>​    toYDelta是Y方向上终点位置</p>
+<p>​    100%指控件本身位置，往下移动本身高度所在位置</p>
+<p>​    0指控件本身位置</p>
+<p>效果图如下，没有使用动图：</p>
+<p><img src="1.png" alt=""></p>
+<h4 id="选择相机拍摄照片"><a href="#选择相机拍摄照片" class="headerlink" title="选择相机拍摄照片"></a>选择相机拍摄照片</h4><p>无论是相机拍摄还是相册选取照片，思路都差不多，使用startActivityForResult调用系统给的接口，在onActivityResult对结果进行处理。</p>
+<p>相机的思路则是传一个tempPath进去，拍摄的照片放在该位置，在OnActivityResult中通过tempPath得到拍摄的照片，再进行后续处理。</p>
+<p>在上文中，看到选择相机，调用了下面代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PhotoUtils.getPhotoFromCamera(MainActivity.<span class="keyword">this</span>,CAMERA_CODE,tempPath);</span><br></pre></td></tr></table></figure>
+<p>该方法完整代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 拍照获取图片</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> activity   上下文</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> cameraCode 跳转到拍照activity的请求码</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> tempPath   拍出的照片的临时文件路径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getPhotoFromCamera</span><span class="params">(Activity activity, <span class="keyword">int</span> cameraCode,</span></span></span><br><span class="line"><span class="function"><span class="params">                                      String tempPath)</span> </span>&#123;</span><br><span class="line">    Intent getImageByCamera = <span class="keyword">new</span> Intent(</span><br><span class="line">            <span class="string">"android.media.action.IMAGE_CAPTURE"</span>);</span><br><span class="line">    getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT,</span><br><span class="line">            Uri.fromFile(<span class="keyword">new</span> File(tempPath)));</span><br><span class="line">    activity.startActivityForResult(getImageByCamera, cameraCode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法很简单，就是调用系统的相机~</p>
+<h4 id="相册选择照片"><a href="#相册选择照片" class="headerlink" title="相册选择照片"></a>相册选择照片</h4><p>道理是一样的，相册选择无非是返回图片的uri，然后在OnActivityResult中通过uri继续进行操作~</p>
+<p>然而在这个地方，本辣鸡踩坑了~</p>
+<p><strong>先说下Android调用本地相册API有两个（也有可能不止两个）</strong></p>
+<p>第一个：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(</span><br><span class="line">                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);</span><br><span class="line">        activity.startActivityForResult(intent, albumCode);</span><br></pre></td></tr></table></figure>
+<p>这个方法没有任何问题~在OnActivityResult中Uri uri = data.getData();即可得到正确的uri~如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content://media/external/images/media/261321</span><br></pre></td></tr></table></figure>
+<p>然后继续后面的操作~</p>
+<p>第二个：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_GET_CONTENT);</span><br><span class="line">intent.addCategory(Intent.CATEGORY_OPENABLE);</span><br><span class="line">intent.setType(<span class="string">"image/jpeg"</span>);</span><br><span class="line">activity.startActivityForResult(intent, albumCode);</span><br></pre></td></tr></table></figure>
+<p>好吧~这个方法，得到的uri就有点怪~如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content://com.android.providers.media.documents/document/image:3A261321</span><br></pre></td></tr></table></figure>
+<p>然后通过这个uri传入到剪切步骤中，就会找不到相应的文件~从而无法完成。</p>
+<p>解决办法是通过如下代码将上面uri转为可以被剪切步骤中使用的uri，通过下面的方法转换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回结果为转换之后的uri的字符串</span></span><br><span class="line">PhotoUtils.getRealFilePath(<span class="keyword">this</span>,uri)</span><br></pre></td></tr></table></figure>
+<p>转化之后</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:<span class="comment">///storage/emulated/0/DCIM/Camera/IMG_20170815_120235.jpg</span></span><br></pre></td></tr></table></figure>
+<p>关于这两种方法，对第二种uri，查阅资料之后，发现，第二种方法是通过type再决定具体调用哪一个程序…..理解不够，说不清楚。。</p>
+<h4 id="头像剪切"><a href="#头像剪切" class="headerlink" title="头像剪切"></a>头像剪切</h4><p>上面经常看到OnActivityResult方法中进行处理，处理的主要就是头像剪切~</p>
+<p>看看我的MainActivity</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拍照请求码</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CAMERA_CODE = <span class="number">1000</span>;</span><br><span class="line">    <span class="comment">// 相册请求码</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ALBUM_CODE = <span class="number">1001</span>;</span><br><span class="line">    <span class="comment">// 剪裁请求码</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ZOOM_CODE = <span class="number">1002</span>;</span><br><span class="line">    <span class="comment">//临时文件路径</span></span><br><span class="line">    <span class="keyword">private</span> String tempPath = Environment.getExternalStorageDirectory()</span><br><span class="line">      .getAbsolutePath() + <span class="string">"/tempPhoto.jpg"</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 显示头像选取弹窗</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setPopupWindow</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//new一下DIalog，第二个参数是Dialog主题设置</span></span><br><span class="line">        <span class="keyword">final</span> Dialog mCameraDialog = <span class="keyword">new</span></span><br><span class="line">          Dialog(MainActivity.<span class="keyword">this</span>,R.style.BottomDialog);</span><br><span class="line">        <span class="comment">//弹出框的界面</span></span><br><span class="line">        LinearLayout root = (LinearLayout)</span><br><span class="line">        LayoutInflater.from(MainActivity.<span class="keyword">this</span>).inflate(</span><br><span class="line">                R.layout.layout_avatar_popup, <span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">//初始化视图</span></span><br><span class="line">        root.findViewById(R.id.btn_open_camera)</span><br><span class="line">          .setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//打开相机</span></span><br><span class="line">                PhotoUtils.getPhotoFromCamera(MainActivity.<span class="keyword">this</span></span><br><span class="line">                                              ,CAMERA_CODE,tempPath);</span><br><span class="line">                mCameraDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        root.findViewById(R.id.btn_choose_img)</span><br><span class="line">          .setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//打开相册</span></span><br><span class="line">                PhotoUtils.getPhotoFromAlbum(MainActivity.<span class="keyword">this</span>,ALBUM_CODE);</span><br><span class="line">                mCameraDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        root.findViewById(R.id.btn_cancel)</span><br><span class="line">          .setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                mCameraDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        mCameraDialog.setContentView(root);</span><br><span class="line">        Window dialogWindow = mCameraDialog.getWindow();</span><br><span class="line">        <span class="keyword">assert</span> dialogWindow != <span class="keyword">null</span>;</span><br><span class="line">        dialogWindow.setGravity(Gravity.BOTTOM);</span><br><span class="line">        <span class="comment">// 获取对话框当前的参数值</span></span><br><span class="line">        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); </span><br><span class="line">        <span class="comment">// 设置宽度...不设置弹窗宽度是wrap_content</span></span><br><span class="line">        lp.width = (<span class="keyword">int</span>) getResources().getDisplayMetrics().widthPixels; </span><br><span class="line">        dialogWindow.setAttributes(lp);</span><br><span class="line">        mCameraDialog.show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理请求码</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">        <span class="keyword">if</span> (requestCode == CAMERA_CODE &amp;&amp; resultCode == RESULT_OK) &#123;</span><br><span class="line">            <span class="comment">//拍照回来进入剪裁activity</span></span><br><span class="line">            Log.i(<span class="string">"Test"</span>,<span class="string">"camera: 1  :"</span> + tempPath);</span><br><span class="line">            Uri uri = Uri.fromFile(<span class="keyword">new</span> File(tempPath));</span><br><span class="line">            Log.i(<span class="string">"Test"</span>,<span class="string">"camera: 1  :"</span> + uri.toString());</span><br><span class="line">            PhotoUtils.photoZoom(<span class="keyword">this</span>, uri,tempPath, ZOOM_CODE, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (requestCode == ALBUM_CODE &amp;&amp; resultCode == RESULT_OK) &#123;</span><br><span class="line">            <span class="comment">//相册回来进入裁剪activity</span></span><br><span class="line">            <span class="comment">//获取选择图片的uri</span></span><br><span class="line">            Uri uri = data.getData();</span><br><span class="line">            Log.i(<span class="string">"Test"</span>,<span class="string">"album: 1  :"</span> + uri.toString());</span><br><span class="line">            <span class="comment">//如果相册选取使用的第二种方法，则将下面注释删除</span></span><br><span class="line">            <span class="comment">//uri = Uri.fromFile(new File((PhotoUtils.getRealFilePath(this,uri))));</span></span><br><span class="line">            <span class="comment">//Log.i("Test","album: 2  :" + uri.toString());</span></span><br><span class="line">            PhotoUtils.photoZoom(<span class="keyword">this</span>,uri , tempPath, ZOOM_CODE, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (requestCode == ZOOM_CODE &amp;&amp; resultCode == RESULT_OK) &#123;</span><br><span class="line">            avatar.setImageURI(Uri.fromFile(<span class="keyword">new</span> File(tempPath)));</span><br><span class="line">            <span class="comment">//在这里可以把临时图片上传到服务器保存，方便下次登录从服务器获取头像</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>我省略了中间一些代码，比如点击头像才弹出选择框。</p>
+<h4 id="PhotoUtils-java"><a href="#PhotoUtils-java" class="headerlink" title="PhotoUtils.java"></a>PhotoUtils.java</h4><p>其中借鉴了部分网上代码，比如getRealFilePath方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.exercise.p.citicup;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.lang.ref.WeakReference;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.Activity;</span><br><span class="line"><span class="keyword">import</span> android.app.AlertDialog;</span><br><span class="line"><span class="keyword">import</span> android.content.ContentResolver;</span><br><span class="line"><span class="keyword">import</span> android.content.ContentUris;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.DialogInterface;</span><br><span class="line"><span class="keyword">import</span> android.content.Intent;</span><br><span class="line"><span class="keyword">import</span> android.database.Cursor;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Bitmap;</span><br><span class="line"><span class="keyword">import</span> android.graphics.BitmapFactory;</span><br><span class="line"><span class="keyword">import</span> android.net.Uri;</span><br><span class="line"><span class="keyword">import</span> android.os.Environment;</span><br><span class="line"><span class="keyword">import</span> android.provider.DocumentsContract;</span><br><span class="line"><span class="keyword">import</span> android.provider.MediaStore;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhotoUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拍照获取图片</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> activity   上下文</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cameraCode 跳转到拍照activity的请求码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tempPath   拍出的照片的临时文件路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getPhotoFromCamera</span><span class="params">(Activity activity, <span class="keyword">int</span> cameraCode,</span></span></span><br><span class="line"><span class="function"><span class="params">                                          String tempPath)</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(</span><br><span class="line">                <span class="string">"android.media.action.IMAGE_CAPTURE"</span>);</span><br><span class="line">        intent.putExtra(MediaStore.EXTRA_OUTPUT,</span><br><span class="line">                Uri.fromFile(<span class="keyword">new</span> File(tempPath)));</span><br><span class="line">        activity.startActivityForResult(intent, cameraCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 相册获取图片</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> activity  上下文</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> albumCode 跳转到相册activity的请求码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getPhotoFromAlbum</span><span class="params">(Activity activity, <span class="keyword">int</span> albumCode)</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(</span><br><span class="line">                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);</span><br><span class="line">        activity.startActivityForResult(intent, albumCode);</span><br><span class="line">        <span class="comment">//Intent intent = new Intent(Intent.ACTION_GET_CONTENT);</span></span><br><span class="line">        <span class="comment">//intent.addCategory(Intent.CATEGORY_OPENABLE);</span></span><br><span class="line">        <span class="comment">//intent.setType("image/jpeg");</span></span><br><span class="line">        <span class="comment">//activity.startActivityForResult(intent, albumCode);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 裁剪图片</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> activity 上下文</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> uri      需要剪裁图片的uri</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path     裁剪后的保存的图片路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> zoomCode 跳转系统裁剪activity的请求码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> aspectX  宽比例</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> aspectY  高比例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">photoZoom</span><span class="params">(Activity activity, Uri uri, String path, <span class="keyword">int</span> zoomCode, <span class="keyword">int</span> aspectX, <span class="keyword">int</span> aspectY)</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="string">"com.android.camera.action.CROP"</span>);</span><br><span class="line">        intent.setDataAndType(uri, <span class="string">"image/*"</span>);</span><br><span class="line">        intent.putExtra(<span class="string">"crop"</span>, <span class="string">"true"</span>);</span><br><span class="line">        <span class="comment">// aspectX aspectY 是宽高的比例  </span></span><br><span class="line">        <span class="keyword">if</span> (aspectY &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            intent.putExtra(<span class="string">"aspectX"</span>, aspectX);</span><br><span class="line">            intent.putExtra(<span class="string">"aspectY"</span>, aspectY);</span><br><span class="line">        &#125;</span><br><span class="line">        intent.putExtra(<span class="string">"scale"</span>, aspectX == aspectY);</span><br><span class="line">        intent.putExtra(<span class="string">"return-data"</span>, <span class="keyword">true</span>);</span><br><span class="line">        intent.putExtra(<span class="string">"outputFormat"</span>, Bitmap.CompressFormat.JPEG.toString());</span><br><span class="line">        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(<span class="keyword">new</span> File(path)));</span><br><span class="line">        intent.putExtra(<span class="string">"noFaceDetection"</span>, <span class="keyword">true</span>);</span><br><span class="line">        activity.startActivityForResult(intent, zoomCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将SD卡图片路径转为Bitmap对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path 图片路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> w    转为bitmap后图片的宽</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> h    转为bitmap后图片的高</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> bitmap对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">convertToBitmap</span><span class="params">(String path, <span class="keyword">int</span> w, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">        BitmapFactory.Options opts = <span class="keyword">new</span> BitmapFactory.Options();</span><br><span class="line">        <span class="comment">// 设置为ture只获取图片大小  </span></span><br><span class="line">        opts.inJustDecodeBounds = <span class="keyword">true</span>;</span><br><span class="line">        opts.inPreferredConfig = Bitmap.Config.ARGB_8888;</span><br><span class="line">        <span class="comment">// 返回为空  </span></span><br><span class="line">        BitmapFactory.decodeFile(path, opts);</span><br><span class="line">        <span class="keyword">int</span> width = opts.outWidth;</span><br><span class="line">        <span class="keyword">int</span> height = opts.outHeight;</span><br><span class="line">        <span class="keyword">float</span> scaleWidth = <span class="number">0</span>.f, scaleHeight = <span class="number">0</span>.f;</span><br><span class="line">        <span class="keyword">if</span> (width &gt; w || height &gt; h) &#123;</span><br><span class="line">            <span class="comment">// 缩放  </span></span><br><span class="line">            scaleWidth = ((<span class="keyword">float</span>) width) / w;</span><br><span class="line">            scaleHeight = ((<span class="keyword">float</span>) height) / h;</span><br><span class="line">        &#125;</span><br><span class="line">        opts.inJustDecodeBounds = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">float</span> scale = Math.max(scaleWidth, scaleHeight);</span><br><span class="line">        opts.inSampleSize = (<span class="keyword">int</span>) scale;</span><br><span class="line">        WeakReference&lt;Bitmap&gt; weak = <span class="keyword">new</span> WeakReference&lt;Bitmap&gt;(BitmapFactory.decodeFile(path, opts));</span><br><span class="line">        <span class="keyword">return</span> Bitmap.createScaledBitmap(weak.get(), w, h, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到真正的图片路径</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> context 上下文</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> imageUri 图片uri</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 真正的uri</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getRealFilePath</span><span class="params">( <span class="keyword">final</span> Context context, <span class="keyword">final</span> Uri imageUri )</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (context == <span class="keyword">null</span> || imageUri == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (DocumentsContract.isDocumentUri(context, imageUri)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isExternalStorageDocument(imageUri)) &#123;</span><br><span class="line">                String docId = DocumentsContract.getDocumentId(imageUri);</span><br><span class="line">                String[] split = docId.split(<span class="string">":"</span>);</span><br><span class="line">                String type = split[<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"primary"</span>.equalsIgnoreCase(type)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> Environment.getExternalStorageDirectory() + <span class="string">"/"</span> + split[<span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDownloadsDocument(imageUri)) &#123;</span><br><span class="line">                String id = DocumentsContract.getDocumentId(imageUri);</span><br><span class="line">                Uri contentUri = ContentUris.withAppendedId(Uri.parse(<span class="string">"content://downloads/public_downloads"</span>), Long.valueOf(id));</span><br><span class="line">                <span class="keyword">return</span> getDataColumn(context, contentUri, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isMediaDocument(imageUri)) &#123;</span><br><span class="line">                String docId = DocumentsContract.getDocumentId(imageUri);</span><br><span class="line">                String[] split = docId.split(<span class="string">":"</span>);</span><br><span class="line">                String type = split[<span class="number">0</span>];</span><br><span class="line">                Uri contentUri = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"image"</span>.equals(type)) &#123;</span><br><span class="line">                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"video"</span>.equals(type)) &#123;</span><br><span class="line">                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"audio"</span>.equals(type)) &#123;</span><br><span class="line">                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;</span><br><span class="line">                &#125;</span><br><span class="line">                String selection = MediaStore.Images.Media._ID + <span class="string">"=?"</span>;</span><br><span class="line">                String[] selectionArgs = <span class="keyword">new</span> String[] &#123; split[<span class="number">1</span>] &#125;;</span><br><span class="line">                <span class="keyword">return</span> getDataColumn(context, contentUri, selection, selectionArgs);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="comment">// MediaStore (and general)</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"content"</span>.equalsIgnoreCase(imageUri.getScheme())) &#123;</span><br><span class="line">            <span class="comment">// Return the remote address</span></span><br><span class="line">            <span class="keyword">if</span> (isGooglePhotosUri(imageUri))</span><br><span class="line">                <span class="keyword">return</span> imageUri.getLastPathSegment();</span><br><span class="line">            <span class="keyword">return</span> getDataColumn(context, imageUri, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// File</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"file"</span>.equalsIgnoreCase(imageUri.getScheme())) &#123;</span><br><span class="line">            <span class="keyword">return</span> imageUri.getPath();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getDataColumn</span><span class="params">(Context context, Uri uri, String selection, String[] selectionArgs)</span> </span>&#123;</span><br><span class="line">        Cursor cursor = <span class="keyword">null</span>;</span><br><span class="line">        String column = MediaStore.Images.Media.DATA;</span><br><span class="line">        String[] projection = &#123; column &#125;;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">if</span> (cursor != <span class="keyword">null</span> &amp;&amp; cursor.moveToFirst()) &#123;</span><br><span class="line">                <span class="keyword">int</span> index = cursor.getColumnIndexOrThrow(column);</span><br><span class="line">                <span class="keyword">return</span> cursor.getString(index);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (cursor != <span class="keyword">null</span>)</span><br><span class="line">                cursor.close();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> uri The Uri to check.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Whether the Uri authority is ExternalStorageProvider.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isExternalStorageDocument</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"com.android.externalstorage.documents"</span>.equals(uri.getAuthority());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> uri The Uri to check.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Whether the Uri authority is DownloadsProvider.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isDownloadsDocument</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"com.android.providers.downloads.documents"</span>.equals(uri.getAuthority());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> uri The Uri to check.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Whether the Uri authority is MediaProvider.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isMediaDocument</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"com.android.providers.media.documents"</span>.equals(uri.getAuthority());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> uri The Uri to check.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Whether the Uri authority is Google Photos.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isGooglePhotosUri</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"com.google.android.apps.photos.content"</span>.equals(uri.getAuthority());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/14/Android-NavigationView实现侧边栏/" rel="next" title="Android NavigationView实现侧边栏">
+                <i class="fa fa-chevron-left"></i> Android NavigationView实现侧边栏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/24/Ubuntu下vue-init报错解决方案/" rel="prev" title="Ubuntu下vue init报错解决方案">
+                Ubuntu下vue init报错解决方案 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#说明："><span class="nav-number">1.</span> <span class="nav-text">说明：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#点击头像，弹出选择框"><span class="nav-number">2.</span> <span class="nav-text">点击头像，弹出选择框</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择相机拍摄照片"><span class="nav-number">3.</span> <span class="nav-text">选择相机拍摄照片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相册选择照片"><span class="nav-number">4.</span> <span class="nav-text">相册选择照片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#头像剪切"><span class="nav-number">5.</span> <span class="nav-text">头像剪切</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PhotoUtils-java"><span class="nav-number">6.</span> <span class="nav-text">PhotoUtils.java</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,View," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="思路不难，先来看看效果图，如下（可能由于网络原因，图片未加载完全导致看起来卡顿）：">
+<meta name="keywords" content="Android,View">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自滑动的带指示器ViewPager">
+<meta property="og:url" content="http://yoursite.com/2017/03/04/自滑动的带指示器ViewPager/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="思路不难，先来看看效果图，如下（可能由于网络原因，图片未加载完全导致看起来卡顿）：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/自滑动的带指示器ViewPager/效果图.gif">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/自滑动的带指示器ViewPager/整体结构.png">
+<meta property="og:updated_time" content="2017-03-10T10:31:28.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自滑动的带指示器ViewPager">
+<meta name="twitter:description" content="思路不难，先来看看效果图，如下（可能由于网络原因，图片未加载完全导致看起来卡顿）：">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/04/自滑动的带指示器ViewPager/效果图.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/04/自滑动的带指示器ViewPager/"/>
+
+
+
+
+
+  <title>自滑动的带指示器ViewPager | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/04/自滑动的带指示器ViewPager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自滑动的带指示器ViewPager</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-04T12:11:40+08:00">
+                2017-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思路不难，先来看看效果图，如下（可能由于网络原因，图片未加载完全导致看起来卡顿）：</p>
+<a id="more"></a>
+<p><img src="效果图.gif" alt="效果图" width="200" height="200"></p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a><strong>使用</strong></h4><p>在布局文件中， 放入该控件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">RelativeLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/activity_main"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingBottom</span>=<span class="string">"@dimen/activity_vertical_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingLeft</span>=<span class="string">"@dimen/activity_horizontal_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingRight</span>=<span class="string">"@dimen/activity_horizontal_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingTop</span>=<span class="string">"@dimen/activity_vertical_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">"com.exercise.p.indicator_blog.MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.exercise.p.indicator_blog.IndicatorPager</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"200dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginTop</span>=<span class="string">"100dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/pager"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在相关java代码中，获得该控件，并设置显示的View集合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">  <span class="comment">//图片资源文件id</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] page_resource = &#123;R.mipmap.food1,R.mipmap.food2,R.mipmap.food3,R.mipmap.food4,R.mipmap.food5&#125;;</span><br><span class="line">    ArrayList&lt;View&gt; pager_views;</span><br><span class="line">    IndicatorPager pager;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        pager = (IndicatorPager) findViewById(R.id.pager);</span><br><span class="line">        pager_views = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; page_resource.length; i++)&#123;</span><br><span class="line">            ImageView imageView = <span class="keyword">new</span> ImageView(getApplicationContext());</span><br><span class="line">            imageView.setImageResource(page_resource[i]);</span><br><span class="line">            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);</span><br><span class="line">            pager_views.add(imageView);</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">//为控件添加View集合</span></span><br><span class="line">        pager.setAdapterViews(pager_views);</span><br><span class="line">      <span class="comment">//setAdapterViews也直接传入PagerAdapter参数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到此为止。现在讲讲怎么实现该控件IndicatorPager。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a><strong>思路</strong></h4><p>自定义FrameLayout，在里面添加一个自滑动的ViewPager和一个根据ViewPager页数自定义的指示器。</p>
+<h4 id="IndicatorPager类整体结构"><a href="#IndicatorPager类整体结构" class="headerlink" title="IndicatorPager类整体结构"></a><strong>IndicatorPager类整体结构</strong></h4><p><img src="整体结构.png" alt="整体结构" width="400" height="800"></p>
+<h4 id="实现自滑动的ViewPager"><a href="#实现自滑动的ViewPager" class="headerlink" title="实现自滑动的ViewPager"></a><strong>实现自滑动的ViewPager</strong></h4><h5 id="initPagerView"><a href="#initPagerView" class="headerlink" title="initPagerView()"></a><strong>initPagerView()</strong></h5><p>在构造方法中调用，初始化ViewPager()，添加ViewPager。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initPagerView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        pager = <span class="keyword">new</span> ViewPager(mContext);</span><br><span class="line">        ViewPager.LayoutParams params = <span class="keyword">new</span> ViewPager.LayoutParams();</span><br><span class="line">        params.width = ViewPager.LayoutParams.MATCH_PARENT;</span><br><span class="line">        params.height = ViewPager.LayoutParams.MATCH_PARENT;</span><br><span class="line">        pager.setLayoutParams(params);</span><br><span class="line">		...</span><br><span class="line">		...</span><br><span class="line">        addView(pager);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>用户在ui线程中调用setAdapterViews 为此控件设置了View集合或者Adapter。在此方法中，开始启动计时任务。并且根据Views的数量，initIndicator()初始化指示器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置ViewPager的View内容，函数内部自动使用本类自定义的Adapter</span></span><br><span class="line"><span class="comment">     * 初始化itemCount之后，再根据数量初始化Indicator</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pager_views View集合</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAdapterViews</span><span class="params">(ArrayList&lt;View&gt; pager_views)</span> </span>&#123;</span><br><span class="line">        pager.setAdapter(<span class="keyword">new</span> mPagerAdapter(pager_views));</span><br><span class="line">        itemCount = pager_views.size();</span><br><span class="line"><span class="comment">//        设置计时任务</span></span><br><span class="line">        timer.schedule(task,DELAY,DELAY);</span><br><span class="line">        initIndicator();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置ViewPager的Adapter</span></span><br><span class="line"><span class="comment">     * 初始化itemCount之后，再根据数量初始化Indicator</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> adapterViews</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAdapterViews</span><span class="params">(PagerAdapter adapterViews)</span></span>&#123;</span><br><span class="line">        pager.setAdapter(adapterViews);</span><br><span class="line">        itemCount = adapterViews.getCount();</span><br><span class="line"><span class="comment">//        设置计时任务</span></span><br><span class="line">        timer.schedule(task,DELAY,DELAY);</span><br><span class="line">        initIndicator();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="mTask-amp-handler"><a href="#mTask-amp-handler" class="headerlink" title="mTask &amp; handler"></a><strong>mTask &amp; handler</strong></h5><p>指示器在后文中再讲解。mTask和handler是实现自滑动的核心。在任务mTask中通过handler发送信息，handler处理信息实现ViewPager的切换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 计时任务</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">mTask</span> <span class="keyword">extends</span> <span class="title">TimerTask</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">if</span> (itemCount!=<span class="number">0</span>)</span><br><span class="line">             <span class="comment">//发送信息为下一张显示的page position。</span></span><br><span class="line">               handler.sendEmptyMessage((mCurrentPosition + <span class="number">1</span>)%itemCount);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//    配合Timer和mTask实现自动滑动</span></span><br><span class="line">    <span class="keyword">private</span> Handler handler = <span class="keyword">new</span> Handler()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">            Log.i(<span class="string">"Pager"</span>,<span class="string">"MSG"</span> + msg.what);</span><br><span class="line">            <span class="keyword">if</span> (msg.what == <span class="number">0</span>)</span><br><span class="line">                pager.setCurrentItem(msg.what,<span class="keyword">false</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                pager.setCurrentItem(msg.what,<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+<p>pager.setCurrenItem(msg.what,true);第一个参数代表设置的position，第二个参数代表是否显示切换动画。</p>
+<p>但是滑动太快，用户体验并不好。在initPagerView()中，addView之前添加以下代码，设置过渡时间为1.5s，提高用户体验。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//        ViewPagerScroller是内部类，通过这个类，设置ViewPager切换过度时间，产生阻尼效果</span></span><br><span class="line">        ViewPagerScroller scroller = <span class="keyword">new</span> ViewPagerScroller(mContext);</span><br><span class="line"><span class="comment">//        这个是设置切换过渡时间为1.5秒</span></span><br><span class="line">        scroller.setScrollDuration(<span class="number">1500</span>);</span><br><span class="line">        scroller.initViewPagerScroll(pager);</span><br></pre></td></tr></table></figure>
+<h5 id="ViewPagerScroll类"><a href="#ViewPagerScroll类" class="headerlink" title="ViewPagerScroll类"></a>ViewPagerScroll类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">     * 使用此类修改ViewPager切换过渡时间</span><br><span class="line">     */</span><br><span class="line">    private class ViewPagerScroller extends Scroller &#123;</span><br><span class="line">        // 过渡时间</span><br><span class="line">        private int mScrollDuration = 2000;</span><br><span class="line">        /**</span><br><span class="line">         * 设置速度</span><br><span class="line">         * @param duration</span><br><span class="line">         */</span><br><span class="line">        public void setScrollDuration(int duration)&#123;</span><br><span class="line">            this.mScrollDuration = duration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public ViewPagerScroller(Context context) &#123;</span><br><span class="line">            super(context);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public ViewPagerScroller(Context context, Interpolator interpolator) &#123;</span><br><span class="line">            super(context, interpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public ViewPagerScroller(Context context, Interpolator interpolator, boolean flywheel) &#123;</span><br><span class="line">            super(context, interpolator, flywheel);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void startScroll(int startX, int startY, int dx, int dy, int duration) &#123;</span><br><span class="line">//            200是使用setCurrenItem设置ViewPager页面时的过渡时间</span><br><span class="line">            if (duration == 200)</span><br><span class="line">                super.startScroll(startX, startY, dx, dy, mScrollDuration);</span><br><span class="line">            else</span><br><span class="line">                super.startScroll(startX, startY, dx, dy, duration);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void startScroll(int startX, int startY, int dx, int dy) &#123;</span><br><span class="line">            super.startScroll(startX, startY, dx, dy, mScrollDuration);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        public void initViewPagerScroll(ViewPager viewPager) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                Field mScroller = ViewPager.class.getDeclaredField(&quot;mScroller&quot;);</span><br><span class="line">                mScroller.setAccessible(true);</span><br><span class="line">                mScroller.set(viewPager, this);</span><br><span class="line">            &#125; catch(Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>还存在一个问题，即人为滑动的情况。此类中实现ViewPager.OnPageChangeListener接口，这里使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//        设置PagerView页面切换监听器</span></span><br><span class="line">        pager.addOnPageChangeListener(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<p>设置监听器。接口要实现三个函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现ViewPager.OnPageChangeListener</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> position ViewPager当前页数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> positionOffset 滑动比例</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> positionOffsetPixels 滑动像素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrolled</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">float</span> positionOffset, <span class="keyword">int</span> positionOffsetPixels)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        Log.i("Pager", "Position:" + position + "Offset:" + positionOffset);</span></span><br><span class="line">        pager.getParent().requestDisallowInterceptTouchEvent(<span class="keyword">true</span>);</span><br><span class="line">        indicator.move(position,positionOffset);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageSelected</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">        mCurrentPosition = position;</span><br><span class="line">        Log.i(<span class="string">"Pager"</span>, <span class="string">"Position:"</span> + position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ViewPager状态改变时回调</span></span><br><span class="line"><span class="comment">     * ViewPager.SCROLL_STATE_IDLE == 0：停止状态，什么都没干</span></span><br><span class="line"><span class="comment">     * ViewPager.SCROLL_STATE_DRAGGING == 1：ViewPager处于滑动状态</span></span><br><span class="line"><span class="comment">     * ViewPager.SCROLL_STATE_SETTLING == 2:滑动停止状态</span></span><br><span class="line"><span class="comment">     * 滑动ViewPager一次，状态变化为 1 -&gt; 2 -&gt; 0</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> state</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrollStateChanged</span><span class="params">(<span class="keyword">int</span> state)</span> </span>&#123;</span><br><span class="line">        Log.i(<span class="string">"Pager"</span>,<span class="string">"Changed"</span>);</span><br><span class="line">        <span class="keyword">if</span> (state == ViewPager.SCROLL_STATE_DRAGGING) &#123;</span><br><span class="line"><span class="comment">//            滑动状态时，取消计时器</span></span><br><span class="line">            <span class="keyword">if</span> (timer!=<span class="keyword">null</span>) &#123;</span><br><span class="line">                timer.cancel();</span><br><span class="line">                Log.i(<span class="string">"Pager"</span>,<span class="string">"cancel"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            timer = <span class="keyword">null</span>;</span><br><span class="line">            task = <span class="keyword">null</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (state == ViewPager.SCROLL_STATE_IDLE) &#123;</span><br><span class="line"><span class="comment">//            什么都没做的状态下，启动计时器</span></span><br><span class="line">            <span class="keyword">if</span> (timer == <span class="keyword">null</span>&amp;&amp;task == <span class="keyword">null</span>) &#123;</span><br><span class="line">                timer = <span class="keyword">new</span> Timer();</span><br><span class="line">                task = <span class="keyword">new</span> mTask();</span><br><span class="line">                timer.schedule(task, DELAY, DELAY);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Log.i(<span class="string">"Pager"</span>, <span class="string">"status:"</span> + state);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在onPageScrolled方法中调用指示器的move方法，实现指示器的相应滑动。</p>
+<h4 id="指示器"><a href="#指示器" class="headerlink" title="指示器"></a>指示器</h4><p>在上文提到，在设置View集合之后，再初始化指示器。指示器，是根据item数量自定义View。即在该指示器控件中画相应数量的圆（也可以是其他形状，反正自己开心就好~）</p>
+<p>添加Indicator到该控件中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//    添加指示器</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initIndicator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        indicator = <span class="keyword">new</span> Indicator(mContext,itemCount);</span><br><span class="line">        LayoutParams params1 = <span class="keyword">new</span> LayoutParams</span><br><span class="line">                (LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);</span><br><span class="line">        params1.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;</span><br><span class="line">        params1.bottomMargin = <span class="number">20</span>;</span><br><span class="line">        addView(indicator,params1);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Indicator类"><a href="#Indicator类" class="headerlink" title="Indicator类"></a>Indicator类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自定义指示器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Indicator</span> <span class="keyword">extends</span> <span class="title">LinearLayout</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Context mIndicatorContext;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> padding = <span class="number">20</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> radius = <span class="number">12</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> indicatorItemCount = <span class="number">0</span>;</span><br><span class="line">        MoveView mMoveView;</span><br><span class="line">        Paint mPaint;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Indicator</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(context);</span><br><span class="line">            <span class="keyword">this</span>.mIndicatorContext = context;</span><br><span class="line">            init();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Indicator</span><span class="params">(Context context,<span class="keyword">int</span> indicatorItemCount)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(context);</span><br><span class="line">            <span class="keyword">this</span>.mIndicatorContext = context;</span><br><span class="line">            <span class="keyword">this</span>.indicatorItemCount = indicatorItemCount;</span><br><span class="line">            init();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Indicator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(context, attrs);</span><br><span class="line">            <span class="keyword">this</span>.mIndicatorContext = context;</span><br><span class="line">            init();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Indicator</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">            <span class="keyword">this</span>.mIndicatorContext = context;</span><br><span class="line">            init();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIndicatorItemCount</span><span class="params">(<span class="keyword">int</span> indicatorItemCount)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.indicatorItemCount = indicatorItemCount;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">int</span> position,<span class="keyword">float</span> positionOffset)</span></span>&#123;</span><br><span class="line">            LayoutParams params = (LayoutParams) mMoveView.getLayoutParams();</span><br><span class="line">            params.leftMargin = (<span class="keyword">int</span>) ((<span class="number">2</span> * radius + padding) * (position + positionOffset));</span><br><span class="line">            mMoveView.setLayoutParams(params);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//            setOrientation(LinearLayout.HORIZONTAL);</span></span><br><span class="line">            setWillNotDraw(<span class="keyword">false</span>);</span><br><span class="line">            mPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">            mPaint.setAntiAlias(<span class="keyword">true</span>);</span><br><span class="line">            mPaint.setColor(Color.GRAY);</span><br><span class="line">            mPaint.setAlpha(<span class="number">180</span>);</span><br><span class="line">            mMoveView = <span class="keyword">new</span> MoveView(mIndicatorContext);</span><br><span class="line">            addView(mMoveView);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">            setMeasuredDimension(padding + (radius * <span class="number">2</span> + padding) * indicatorItemCount, (padding + radius) * <span class="number">2</span> );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">            Log.i(<span class="string">"Indicator"</span>,<span class="string">"count"</span> + indicatorItemCount);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; indicatorItemCount;i++)&#123;</span><br><span class="line">                canvas.drawCircle(radius + padding + radius * i *<span class="number">2</span> + padding * i,</span><br><span class="line">                        radius + padding,radius,mPaint);</span><br><span class="line"><span class="comment">//                canvas.drawCircle(20,20,20,mPaint);</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现，此类中，不仅画了相应数量的圆，还添加了一个mMoveView，严格来说mMoveView才是真的指示器。该view只有一个不同颜色的圆，在move方法中，不断改变它的位置，从而实现随着滑动而滑动。</p>
+<p><a href="IndicatorPager.java" target="_blank">查看控件完整代码</a></p>
+<p>其实，可以在Github搜索banner，找到现成的控件，可直接使用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/View/" rel="tag"># View</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/04/Hexo-Github搭建个人博客步骤/" rel="prev" title="Hexo + Github搭建个人博客步骤">
+                Hexo + Github搭建个人博客步骤 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IndicatorPager类整体结构"><span class="nav-number">3.</span> <span class="nav-text">IndicatorPager类整体结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现自滑动的ViewPager"><span class="nav-number">4.</span> <span class="nav-text">实现自滑动的ViewPager</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#initPagerView"><span class="nav-number">4.1.</span> <span class="nav-text">initPagerView()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mTask-amp-handler"><span class="nav-number">4.2.</span> <span class="nav-text">mTask &amp; handler</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ViewPagerScroll类"><span class="nav-number">4.3.</span> <span class="nav-text">ViewPagerScroll类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指示器"><span class="nav-number">5.</span> <span class="nav-text">指示器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Indicator类"><span class="nav-number">5.1.</span> <span class="nav-text">Indicator类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="文章分为四个部分   NavigationView + DrawerLayout实现侧边栏  NavigationView与Toolbar/Actionbar结合  遇到的一个坑  （引）NavigationView中item小红点通知标记的实现">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android NavigationView实现侧边栏">
+<meta property="og:url" content="http://yoursite.com/2017/08/14/Android-NavigationView实现侧边栏/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="文章分为四个部分   NavigationView + DrawerLayout实现侧边栏  NavigationView与Toolbar/Actionbar结合  遇到的一个坑  （引）NavigationView中item小红点通知标记的实现">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/08/14/Android-NavigationView实现侧边栏/1.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/14/Android-NavigationView实现侧边栏/2.png">
+<meta property="og:updated_time" content="2017-08-14T07:57:03.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android NavigationView实现侧边栏">
+<meta name="twitter:description" content="文章分为四个部分   NavigationView + DrawerLayout实现侧边栏  NavigationView与Toolbar/Actionbar结合  遇到的一个坑  （引）NavigationView中item小红点通知标记的实现">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/14/Android-NavigationView实现侧边栏/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/14/Android-NavigationView实现侧边栏/"/>
+
+
+
+
+
+  <title>Android NavigationView实现侧边栏 | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/14/Android-NavigationView实现侧边栏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android NavigationView实现侧边栏</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T14:14:35+08:00">
+                2017-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>文章分为四个部分</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> NavigationView + DrawerLayout实现侧边栏</li>
+<li style="list-style: none"><input type="checkbox"> NavigationView与Toolbar/Actionbar结合</li>
+<li style="list-style: none"><input type="checkbox"> 遇到的一个坑</li>
+<li style="list-style: none"><input type="checkbox"> （引）NavigationView中item小红点通知标记的实现</li>
+</ul>
+<a id="more"></a>
+<h4 id="NavigationView-DrawerLayout实现侧边栏"><a href="#NavigationView-DrawerLayout实现侧边栏" class="headerlink" title="NavigationView + DrawerLayout实现侧边栏"></a>NavigationView + DrawerLayout实现侧边栏</h4><p>先介绍DrawerLayout，这是一个布局文件，主要分为主布局内容和侧边菜单内容两部分，通过子控件的layout_gravity来设置，首先是布局文件如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.v4.widget.DrawerLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/main_drawerLayout"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">"com.exercise.p.citicup.activity.MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    //主布局内容</span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/main_toolbar"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"?actionBarSize"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"?colorPrimary"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:translationZ</span>=<span class="string">"2dp"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">                <span class="attr">style</span>=<span class="string">"@style/MyTitle"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:text</span>=<span class="string">"Lifney"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">android.support.design.widget.TabLayout</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/main_tab"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"?actionBarSize"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"?colorPrimary"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:translationZ</span>=<span class="string">"2dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:tabGravity</span>=<span class="string">"fill"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:tabIndicatorColor</span>=<span class="string">"#FFFF8C"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:tabSelectedTextColor</span>=<span class="string">"#FFF"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:tabTextAppearance</span>=<span class="string">"@style/TabText"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:tabTextColor</span>=<span class="string">"#adffffff"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">android.support.v4.view.ViewPager</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/main_pager"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:gravity</span>=<span class="string">"center"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    //侧边栏布局内容</span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"240dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"start"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">layout</span>=<span class="string">"@layout/layout_side"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.v4.widget.DrawerLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在上面代码中，可以看到DrawerLayout中，有两个LinerLayout，第一个里面是主布局内容，第二个是侧边栏布局内容，第二个LinerLayout中，使用android:layout_gravity设置位置，left 或者 start表示左侧，right 或者 end表示右侧</p>
+<p>其中layout_side.xml内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"#faf7f7"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">android.support.design.widget.NavigationView</span> <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/main_side"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"#faf7f7"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:headerLayout</span>=<span class="string">"@layout/layout_side_header"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:itemTextAppearance</span>=<span class="string">"@style/SideText"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:menu</span>=<span class="string">"@menu/menu_side"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/exit"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"@style/SideText"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginBottom</span>=<span class="string">"48dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawablePadding</span>=<span class="string">"7dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawableStart</span>=<span class="string">"@drawable/icon_side_exit"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">"center_vertical"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:paddingLeft</span>=<span class="string">"16dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:paddingRight</span>=<span class="string">"16dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"退出"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>布局文件中，为了实现侧边栏最底部有一个退出选项。至于NavigationView外部还包裹了一层LinearLayout，则是我遇到的一个奇怪的地方~第三部分细讲</p>
+<p>NavigationView中，分为头部内容和menu内容，本文章中头部内容布局文件仅一个圆形头像和一个昵称，布局文件则省略</p>
+<pre><code>//设置头部内容
+app:headerLayout=&quot;@layout/layout_side_header&quot;
+//设置menu内容
+app:menu=&quot;@menu/menu_side&quot;
+//设置menu的item文字字体
+app:itemTextAppearance=&quot;@style/SideText&quot;
+</code></pre><p>现在已经实现侧边栏了~</p>
+<h4 id="NavigationView与Toolbar-Actionbar结合"><a href="#NavigationView与Toolbar-Actionbar结合" class="headerlink" title="NavigationView与Toolbar/Actionbar结合"></a>NavigationView与Toolbar/Actionbar结合</h4><p>App中经常是点击顶部标题栏左侧按钮，就弹出NavigationView，本文中标题栏使用的是Toolbar，在上面主内容布局中可以看到~</p>
+<p>实现代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置toolbar以及侧边栏的结合</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initToolBar</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//设置toolbar属性</span></span><br><span class="line">    setSupportActionBar(toolbar);</span><br><span class="line">    ActionBar actionBar = getSupportActionBar();</span><br><span class="line">    <span class="keyword">assert</span> actionBar != <span class="keyword">null</span>;</span><br><span class="line">    actionBar.setDisplayShowTitleEnabled(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    ActionBarDrawerToggle toggle = <span class="keyword">new</span> ActionBarDrawerToggle(<span class="keyword">this</span>,drawerLayout,toolbar,R.string.app_name,R.string.app_name);</span><br><span class="line">    toggle.setDrawerIndicatorEnabled(<span class="keyword">false</span>);</span><br><span class="line">    toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);</span><br><span class="line">    toggle.setToolbarNavigationClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">            drawerLayout.openDrawer(Gravity.START,<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//设置toolbar结合drawerLayout</span></span><br><span class="line">    toggle.syncState();</span><br><span class="line">    drawerLayout.addDrawerListener(toggle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点在于ActionBarDrawerToggle，new的参数解释如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Parameters:</span><br><span class="line">activity - The Activity hosting the drawer.</span><br><span class="line">drawerLayout - The DrawerLayout to link to the given Activity&apos;s ActionBar</span><br><span class="line">toolbar - The toolbar to use if you have an independent Toolbar.</span><br><span class="line">openDrawerContentDescRes - A String resource to describe the &quot;open drawer&quot; action for accessibility</span><br><span class="line">closeDrawerContentDescRes - A String resource to describe the &quot;close drawer&quot; action for accessibility</span><br></pre></td></tr></table></figure>
+<p>这部分我也没太弄懂，尤其是最后两个string，下面单独提出的两行代码，是替换Toolbar左侧按钮样式的，默认为三根横杠</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">toggle.setDrawerIndicatorEnabled(<span class="keyword">false</span>);</span><br><span class="line">toggle.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);</span><br></pre></td></tr></table></figure>
+<h4 id="遇到的一个坑"><a href="#遇到的一个坑" class="headerlink" title="遇到的一个坑"></a>遇到的一个坑</h4><p>前面有说到，NavigationView外面另外包裹了一层LinearLayout，是因为，如果我布包裹这一层，则会使我下面那个TextView的背景颜色怪怪的~即使我为TextView设置背景色也不起作用，很无奈~看图~</p>
+<p>不包裹LinearLayout</p>
+<p><img src="1.png" height="200" width="200"></p>
+<p>包裹之后</p>
+<p><img src="2.png" height="200" width="200"></p>
+<h4 id="（引）NavigationView中item小红点通知标记的实现"><a href="#（引）NavigationView中item小红点通知标记的实现" class="headerlink" title="（引）NavigationView中item小红点通知标记的实现"></a>（引）NavigationView中item小红点通知标记的实现</h4><p>主要是记录一下，方便下次实现</p>
+<p><a href="https://medium.com/@harivigneshjayapalan/android-adding-badge-or-count-to-the-navigation-drawer-84c93af1f4d9#.fd0xio2ns" target="_blank" rel="noopener">1.不使用额外布局</a></p>
+<p><a href="http://www.jianshu.com/p/90eb9d06480d" target="_blank" rel="noopener">2.使用额外布局</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/Android-TabLayout-ViewPager实现分页/" rel="next" title="Android TabLayout+ViewPager实现分页">
+                <i class="fa fa-chevron-left"></i> Android TabLayout+ViewPager实现分页
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/15/Android-相册或相机选择头像/" rel="prev" title="Android 相册或相机选择头像">
+                Android 相册或相机选择头像 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#NavigationView-DrawerLayout实现侧边栏"><span class="nav-number">1.</span> <span class="nav-text">NavigationView + DrawerLayout实现侧边栏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NavigationView与Toolbar-Actionbar结合"><span class="nav-number">2.</span> <span class="nav-text">NavigationView与Toolbar/Actionbar结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到的一个坑"><span class="nav-number">3.</span> <span class="nav-text">遇到的一个坑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（引）NavigationView中item小红点通知标记的实现"><span class="nav-number">4.</span> <span class="nav-text">（引）NavigationView中item小红点通知标记的实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

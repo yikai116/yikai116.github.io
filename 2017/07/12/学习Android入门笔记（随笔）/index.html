@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="虽然之前也接触过Android，并且写过一些不忍直视的小项目，但是之前都是就解决问题而解决问题，当我下次遇到问题的时候，我又要重新百度谷歌…做着周而复始的事情。 在这个短暂的暑假，打算自己想个项目写写，将就重新学学Android，毕竟以后毕业估计也就从事Android开发，拿点固定工资将就过日子吧~ 此篇文章仅记载我在这个暑假这个项目中，遇到的问题，以及解决的过程，仅仅是记载着以备下次又要重新百度">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习Android入门笔记（随笔）">
+<meta property="og:url" content="http://yoursite.com/2017/07/12/学习Android入门笔记（随笔）/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="虽然之前也接触过Android，并且写过一些不忍直视的小项目，但是之前都是就解决问题而解决问题，当我下次遇到问题的时候，我又要重新百度谷歌…做着周而复始的事情。 在这个短暂的暑假，打算自己想个项目写写，将就重新学学Android，毕竟以后毕业估计也就从事Android开发，拿点固定工资将就过日子吧~ 此篇文章仅记载我在这个暑假这个项目中，遇到的问题，以及解决的过程，仅仅是记载着以备下次又要重新百度">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/07/12/学习Android入门笔记（随笔）/20170717_1.png">
+<meta property="og:image" content="http://yoursite.com/2017/07/12/学习Android入门笔记（随笔）/style颜色.jpg">
+<meta property="og:updated_time" content="2017-08-14T07:41:30.668Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习Android入门笔记（随笔）">
+<meta name="twitter:description" content="虽然之前也接触过Android，并且写过一些不忍直视的小项目，但是之前都是就解决问题而解决问题，当我下次遇到问题的时候，我又要重新百度谷歌…做着周而复始的事情。 在这个短暂的暑假，打算自己想个项目写写，将就重新学学Android，毕竟以后毕业估计也就从事Android开发，拿点固定工资将就过日子吧~ 此篇文章仅记载我在这个暑假这个项目中，遇到的问题，以及解决的过程，仅仅是记载着以备下次又要重新百度">
+<meta name="twitter:image" content="http://yoursite.com/2017/07/12/学习Android入门笔记（随笔）/20170717_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/12/学习Android入门笔记（随笔）/"/>
+
+
+
+
+
+  <title>学习Android入门笔记（随笔） | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/12/学习Android入门笔记（随笔）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习Android入门笔记（随笔）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-12T12:50:33+08:00">
+                2017-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>虽然之前也接触过Android，并且写过一些不忍直视的小项目，但是之前都是就解决问题而解决问题，当我下次遇到问题的时候，我又要重新百度谷歌…做着周而复始的事情。</p>
+<p>在这个短暂的暑假，打算自己想个项目写写，将就重新学学Android，毕竟以后毕业估计也就从事Android开发，拿点固定工资将就过日子吧~</p>
+<p>此篇文章仅记载我在这个暑假这个项目中，遇到的问题，以及解决的过程，仅仅是记载着以备下次又要重新百度谷歌….希望暑假过完，我能有一些想要的收获~</p>
+<a id="more"></a>
+<h4 id="2017-07-12"><a href="#2017-07-12" class="headerlink" title="2017 / 07 / 12"></a>2017 / 07 / 12</h4><p>问题：使用Android studio开发过程中，新建一个Activity都是继承 AppCompatActivity，然而搜索Android设置全屏，基本都是两种方法：</p>
+<p>方法1：AndroidManifest.xml 里，Activity的 android:theme  指定为</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">" @android:style/Theme.NoTitleBar.Fullscreen"</span><br></pre></td></tr></table></figure>
+<p>方法2：在onCreate中添加如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*set it to be no title*/</span> </span><br><span class="line">requestWindowFeature(Window.FEATURE_NO_TITLE); </span><br><span class="line"><span class="comment">/*set it to be full screen*/</span> </span><br><span class="line">getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,</span><br><span class="line">                     WindowManager.LayoutParams.FLAG_FULLSCREEN);</span><br></pre></td></tr></table></figure>
+<p>但是对于继承AppCompatActivity的Activity，上述方法会报错…说AppCompatActivity必须使用Theme.AppCompat主题。</p>
+<p>解决办法：在style.xml中自己写一个style，继承Theme.AppCompat.Light.NoActionBar，并且在item中如下添加代码。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"FullScreen"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowNoTitle"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowFullscreen"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最后在 AndroidManifest.xml中，设置该Activity的android:theme指定为以上style</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:theme="@style/FullScreen"</span><br></pre></td></tr></table></figure>
+<h4 id="2017-07-13"><a href="#2017-07-13" class="headerlink" title="2017 / 07 / 13"></a>2017 / 07 / 13</h4><p>App开发经常使用到Vector，以前都是自己把data数据复制进去，自己进行svg到drawable的转换…想想以前自己转换，真的好傻 ￣へ￣..</p>
+<p>找到一个在线转换Android SVG to VectorDrawable</p>
+<p>传送门在此~<a href="http://inloop.github.io/svg2android/" target="_blank" rel="noopener">http://inloop.github.io/svg2android/</a></p>
+<p>登录界面有些时候输入框会把登录按钮等控件遮挡住，很影响用户体验。</p>
+<p>参考<a href="http://blog.csdn.net/harryweasley/article/details/50266749" target="_blank" rel="noopener">http://blog.csdn.net/harryweasley/article/details/50266749</a></p>
+<p>在Activity的oncreate()中添加如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//root是根布局，为其添加一个布局变化监听器</span></span><br><span class="line">root.getViewTreeObserver().addOnGlobalLayoutListener(</span><br><span class="line">                <span class="keyword">new</span> ViewTreeObserver.OnGlobalLayoutListener() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGlobalLayout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        Rect rect = <span class="keyword">new</span> Rect();</span><br><span class="line">                        <span class="comment">// 获取root在窗体的可视区域</span></span><br><span class="line">                        root.getWindowVisibleDisplayFrame(rect);</span><br><span class="line">                        <span class="comment">// 当前视图最外层的高度减去现在所看到的视图的最底部的y坐标</span></span><br><span class="line">                        <span class="keyword">int</span> rootInvisibleHeight = root.getRootView()</span><br><span class="line">                                .getHeight() - rect.bottom;</span><br><span class="line">                        Log.i(<span class="string">"tag"</span>, <span class="string">"最外层的高度"</span> + root.getRootView().getHeight());</span><br><span class="line">                        <span class="comment">// 若rootInvisibleHeight高度大于100，则说明当前视图上移了，说明软键盘弹出了</span></span><br><span class="line">                        <span class="keyword">if</span> (rootInvisibleHeight &gt; <span class="number">100</span>) &#123;</span><br><span class="line">                            <span class="comment">//软键盘弹出来的时候</span></span><br><span class="line">                            <span class="keyword">int</span>[] location = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">                            <span class="comment">// 获取scrollToView在窗体的坐标</span></span><br><span class="line">                            view.getLocationInWindow(location);</span><br><span class="line">                            <span class="comment">// 计算root滚动高度，使scrollToView在可见区域的底部</span></span><br><span class="line">                            <span class="keyword">int</span> srollHeight = (location[<span class="number">1</span>] + view</span><br><span class="line">                                    .getHeight()) - rect.bottom;</span><br><span class="line">                            root.scrollTo(<span class="number">0</span>, srollHeight + <span class="number">10</span>);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="comment">// 软键盘没有弹出来的时候</span></span><br><span class="line">                            root.scrollTo(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br></pre></td></tr></table></figure>
+<p>并且在AndroidManifest.xml文件中设置该Activity软键盘模式为adjustPan。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode="adjustPan"</span><br></pre></td></tr></table></figure>
+<p>补充一个直接隐藏软键盘代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//隐藏软键盘</span></span><br><span class="line">               ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE))</span><br><span class="line">                       .hideSoftInputFromWindow(SignActivity.<span class="keyword">this</span>.getCurrentFocus()</span><br><span class="line">                               .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);</span><br></pre></td></tr></table></figure>
+<h4 id="2017-07-17"><a href="#2017-07-17" class="headerlink" title="2017 / 07 / 17"></a>2017 / 07 / 17</h4><p>好吧，前两天又堕落了。其实也不算堕落，15号国际周考试结束，就16号一天的假，今天又开始小学期，我也让自己耍耍吧（强行找理</p>
+<p>由，hhh</p>
+<p>TextView中的字体颜色设置，一个TextView中，字显示不一样的颜色。</p>
+<p><img src="20170717_1.png" alt="20170717_1"></p>
+<p>如上图所示，很多app里面都会把 “注册” 两个字显示不同的颜色。</p>
+<p>方式，如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置字体颜色</span></span><br><span class="line"><span class="comment">//signIn_signUp为TextView控件</span></span><br><span class="line">	SpannableStringBuilder builder = <span class="keyword">new</span> SpannableStringBuilder(signIn_signUp.getText().toString());</span><br><span class="line">    ForegroundColorSpan blueSpan = <span class="keyword">new</span> ForegroundColorSpan(ContextCompat.getColor(<span class="keyword">this</span>,R.color.main_color));</span><br><span class="line"><span class="comment">//第一个参数是Span，第二、三个是代表从第8个字开始，到第10个字</span></span><br><span class="line"><span class="comment">//第三个参数暂时不清楚，随便选的一个</span></span><br><span class="line">    builder.setSpan(blueSpan,<span class="number">8</span>,<span class="number">10</span>,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    signIn_signUp.setText(builder);</span><br></pre></td></tr></table></figure>
+<h4 id="2017-08-04"><a href="#2017-08-04" class="headerlink" title="2017 / 08 / 04"></a>2017 / 08 / 04</h4><p>两周小学期，28号才结束，中间间断性的写了一点android，但是主要项目还是小学期的项目Muse后台。这几天在家，其实也一直在写Android，但是，都是零碎的，先放在这吧…</p>
+<p>首先是今天弄得，在主题颜色部分，寄一张图在这~（盗图。有空再补上去</p>
+<p><img src="style颜色.jpg" alt=""></p>
+<p>#### </p>
+<h4 id="2017-08-14"><a href="#2017-08-14" class="headerlink" title="2017 / 08 / 14"></a>2017 / 08 / 14</h4><p>前几天其实学的挺多的~只是都没怎么写，这两天补上</p>
+<p>关于Android NavigationView侧边栏的使用详细内容看另一篇博客：<a href="https://yikai116.github.io/2017/08/14/Android-NavigationView%E5%AE%9E%E7%8E%B0%E4%BE%A7%E8%BE%B9%E6%A0%8F/" target="_blank" rel="noopener">Android-NavigationView实现侧边栏</a></p>
+<p>关于TabLayout和ViewPager联合使用，详细内容看另一篇博客：<a href="https://yikai116.github.io/2017/08/13/Android-TabLayout-ViewPager%E5%AE%9E%E7%8E%B0%E5%88%86%E9%A1%B5/" target="_blank" rel="noopener">Android TabLayout+ViewPager实现分页</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/08/IDEA使用Maven-SpringMVC配置/" rel="next" title="IDEA使用Maven+SpringMVC配置">
+                <i class="fa fa-chevron-left"></i> IDEA使用Maven+SpringMVC配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/03/Tomcat修改配置记录/" rel="prev" title="Tomcat修改配置记录">
+                Tomcat修改配置记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#2017-07-12"><span class="nav-number">1.</span> <span class="nav-text">2017 / 07 / 12</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2017-07-13"><span class="nav-number">2.</span> <span class="nav-text">2017 / 07 / 13</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2017-07-17"><span class="nav-number">3.</span> <span class="nav-text">2017 / 07 / 17</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2017-08-04"><span class="nav-number">4.</span> <span class="nav-text">2017 / 08 / 04</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2017-08-14"><span class="nav-number">5.</span> <span class="nav-text">2017 / 08 / 14</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

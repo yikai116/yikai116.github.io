@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Tomcat," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="记录而已~免得下次出问题又忘了怎么办。。">
+<meta name="keywords" content="Tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat修改配置记录">
+<meta property="og:url" content="http://yoursite.com/2017/08/03/Tomcat修改配置记录/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="记录而已~免得下次出问题又忘了怎么办。。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-07T09:06:00.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tomcat修改配置记录">
+<meta name="twitter:description" content="记录而已~免得下次出问题又忘了怎么办。。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/03/Tomcat修改配置记录/"/>
+
+
+
+
+
+  <title>Tomcat修改配置记录 | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/03/Tomcat修改配置记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tomcat修改配置记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-03T14:20:49+08:00">
+                2017-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记录而已~免得下次出问题又忘了怎么办。。</p>
+<a id="more"></a>
+<p>解压之后，发现启动时正常启动，但是关闭时，报错8005端口找不到，tomcat可能没有启动</p>
+<p>百度查询之后，解决方式：</p>
+<p>将<em>$JAVA_HOME/jre/lib/security/Java.security</em> 文件中 <em>securerandom.source</em>中</p>
+<p><em>securerandom.source=file:/dev/random</em><br>修改为：<br><em>securerandom.source=file:/dev/urandom</em></p>
+<p>修改tomcat端口8080为8081,8009为8010</p>
+<p>——————-分割线———————————–</p>
+<p>使用tomcat9，目前一切正常</p>
+<p>2017/11/6/17:41</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">06-Nov-2017 09:37:09.481 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 2472 ms</span><br></pre></td></tr></table></figure>
+<p>启动日志</p>
+<p>2017/11/7/14:30发现日志中有报错信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">06-Nov-2017 14:22:42.934 INFO [http-nio-8080-exec-2] org.apache.coyote.http11.Http11Processor.service Error parsing HTTP request header</span><br><span class="line"> Note: further occurrences of HTTP header parsing errors will be logged at DEBUG level.</span><br><span class="line"> java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens</span><br><span class="line">	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:410)</span><br><span class="line">	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)</span><br><span class="line">	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)</span><br><span class="line">	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:754)</span><br><span class="line">	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1376)</span><br><span class="line">	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)</span><br><span class="line">	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:748)</span><br></pre></td></tr></table></figure>
+<p>暂时对这个报错原因不太了解</p>
+<p>上面那个错误暂时不管，因为在报错之后，我发现tomcat并没有死？</p>
+<p>不久后</p>
+<p>15:55，日常访问服务器，发现现在服务器死了….</p>
+<p>发现并没有任何错误日志</p>
+<p>查看系统内核日志，发现是oom杀死了tomcat…</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">root@Web:~# dmesg | grep "(java)"</span><br><span class="line">[106644.468559] Out of memory: Kill process 2163 (java) score 519 or sacrifice child</span><br><span class="line">[106644.468829] Killed process 2163 (java) total-vm:2119620kB, anon-rss:267224kB, file-rss:0kB</span><br><span class="line">[538297.055000] Out of memory: Kill process 18465 (java) score 452 or sacrifice child</span><br><span class="line">[538297.055100] Killed process 18465 (java) total-vm:2105260kB, anon-rss:232656kB, file-rss:0kB</span><br><span class="line">[1316394.418838] Out of memory: Kill process 30018 (java) score 480 or sacrifice child</span><br><span class="line">[1316394.418943] Killed process 30018 (java) total-vm:2107324kB, anon-rss:246844kB, file-rss:0kB</span><br><span class="line">[1401314.207875] Out of memory: Kill process 11684 (java) score 596 or sacrifice child</span><br><span class="line">[1401314.207974] Killed process 11684 (java) total-vm:2128996kB, anon-rss:306504kB, file-rss:0kB</span><br><span class="line">[3561686.094946] Out of memory: Kill process 16984 (java) score 407 or sacrifice child</span><br><span class="line">[3561686.095126] Killed process 16984 (java) total-vm:2090064kB, anon-rss:209484kB, file-rss:0kB</span><br><span class="line">[3635945.274441] Out of memory: Kill process 14877 (java) score 538 or sacrifice child</span><br><span class="line">[3635945.274623] Killed process 14877 (java) total-vm:2132568kB, anon-rss:276608kB, file-rss:0kB</span><br><span class="line">[3721323.835782] Out of memory: Kill process 21424 (java) score 686 or sacrifice child</span><br><span class="line">[3721323.835939] Killed process 21424 (java) total-vm:2161000kB, anon-rss:352844kB, file-rss:0kB</span><br><span class="line">[3734181.197916] Out of memory: Kill process 23578 (java) score 475 or sacrifice child</span><br><span class="line">[3734181.198023] Killed process 23578 (java) total-vm:2101324kB, anon-rss:244224kB, file-rss:0kB</span><br><span class="line">[3821096.976366] Out of memory: Kill process 24265 (java) score 427 or sacrifice child</span><br><span class="line">[3821096.976726] Killed process 24265 (java) total-vm:2092324kB, anon-rss:219676kB, file-rss:0kB</span><br><span class="line">[3994023.438552] Out of memory: Kill process 27797 (java) score 434 or sacrifice child</span><br><span class="line">[3994023.438739] Killed process 27797 (java) total-vm:2088008kB, anon-rss:223156kB, file-rss:0kB</span><br><span class="line">[4081278.246758] Out of memory: Kill process 2219 (java) score 417 or sacrifice child</span><br><span class="line">[4081278.247212] Killed process 2219 (java) total-vm:2087872kB, anon-rss:214696kB, file-rss:0kB</span><br><span class="line">[4253484.998087] Out of memory: Kill process 4130 (java) score 398 or sacrifice child</span><br><span class="line">[4253484.998309] Killed process 4130 (java) total-vm:2089920kB, anon-rss:204560kB, file-rss:0kB</span><br><span class="line">[4771843.822181] Out of memory: Kill process 26773 (java) score 395 or sacrifice child</span><br><span class="line">[4771843.822467] Killed process 26773 (java) total-vm:2088272kB, anon-rss:203464kB, file-rss:0kB</span><br><span class="line">[5204560.116113] Out of memory: Kill process 23816 (java) score 391 or sacrifice child</span><br><span class="line">[5204560.116797] Killed process 23816 (java) total-vm:2091376kB, anon-rss:201140kB, file-rss:0kB</span><br><span class="line">[5290969.213213] Out of memory: Kill process 30522 (java) score 423 or sacrifice child</span><br><span class="line">[5290969.213491] Killed process 30522 (java) total-vm:2093680kB, anon-rss:217944kB, file-rss:0kB</span><br><span class="line">[6414136.411490] Out of memory: Kill process 2648 (java) score 470 or sacrifice child</span><br><span class="line">[6414136.411815] Killed process 2648 (java) total-vm:2091724kB, anon-rss:241952kB, file-rss:0kB</span><br><span class="line">[7190569.651877] Out of memory: Kill process 20320 (java) score 477 or sacrifice child</span><br><span class="line">[7190569.652082] Killed process 20320 (java) total-vm:2091216kB, anon-rss:245752kB, file-rss:0kB</span><br><span class="line">[7363137.908634] Out of memory: Kill process 16319 (java) score 471 or sacrifice child</span><br><span class="line">[7363137.908810] Killed process 16319 (java) total-vm:2093272kB, anon-rss:242520kB, file-rss:0kB</span><br><span class="line">[8049439.230240] Out of memory: Kill process 26250 (java) score 660 or sacrifice child</span><br><span class="line">[8049439.230442] Killed process 26250 (java) total-vm:2159324kB, anon-rss:339884kB, file-rss:0kB</span><br><span class="line">[8055811.543401] Out of memory: Kill process 7051 (java) score 485 or sacrifice child</span><br><span class="line">[8055811.543592] Killed process 7051 (java) total-vm:2108636kB, anon-rss:249644kB, file-rss:0kB</span><br><span class="line">[8141158.176698] Out of memory: Kill process 8754 (java) score 523 or sacrifice child</span><br><span class="line">[8141158.176980] Killed process 8754 (java) total-vm:2105204kB, anon-rss:269004kB, file-rss:0kB</span><br><span class="line">[8314557.141145] Out of memory: Kill process 21358 (java) score 483 or sacrifice child</span><br><span class="line">[8314557.141250] Killed process 21358 (java) total-vm:2119828kB, anon-rss:248740kB, file-rss:0kB</span><br><span class="line">root@Web:~# sudo dmesg | grep java | grep -i oom-killer</span><br><span class="line">[106644.468079] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[3561686.094420] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[3635945.273563] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[3721323.835321] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[3734181.197326] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[3821096.974953] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[5204560.104765] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[8049439.229335] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br><span class="line">[8141158.175410] java invoked oom-killer: gfp_mask=0x24201ca, order=0, oom_score_adj=0</span><br></pre></td></tr></table></figure>
+<p>杀我这么多次…..真的扎心了</p>
+<p>知道是内存问题….但是 不知道为啥啊…所以配置tomcat，输出垃圾回收日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&quot;-XX:+PrintGCTimeStamps -XX:+PrintGCDetails -Xloggc:/usr/tomcat9/logs/gc.$$.log&quot;</span><br></pre></td></tr></table></figure>
+<p>将日志输出到/usr/tomcat9/logs/gc.\$\$.log文件中，\$\$代表进程id</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/12/学习Android入门笔记（随笔）/" rel="next" title="学习Android入门笔记（随笔）">
+                <i class="fa fa-chevron-left"></i> 学习Android入门笔记（随笔）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/13/Android-TabLayout-ViewPager实现分页/" rel="prev" title="Android TabLayout+ViewPager实现分页">
+                Android TabLayout+ViewPager实现分页 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hibernate,JAVA,IDEA," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="最近写课程项目，涉及数据库的操作，于是开始学习hibernate。 hibernate挺好配置的，但是网上博客什么的，个人感觉都说的太多了，给我一种很麻烦的感觉，但是没办法啊，得用啊！也只好慢慢看那些博客和官方文档（我自己英语太差…没怎么看懂…可能我看的姿势不对吧… 仅限个人理解，望指教~">
+<meta name="keywords" content="Hibernate,JAVA,IDEA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA配置Hibernate">
+<meta property="og:url" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="最近写课程项目，涉及数据库的操作，于是开始学习hibernate。 hibernate挺好配置的，但是网上博客什么的，个人感觉都说的太多了，给我一种很麻烦的感觉，但是没办法啊，得用啊！也只好慢慢看那些博客和官方文档（我自己英语太差…没怎么看懂…可能我看的姿势不对吧… 仅限个人理解，望指教~">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/绝望.JPG">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/new1.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/new2.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/structure.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/structure1.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/db.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/db1.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/db2.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/structure2.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/structure3.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/entity.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/entity1.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/structure4.png">
+<meta property="og:updated_time" content="2017-06-01T03:36:17.765Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IDEA配置Hibernate">
+<meta name="twitter:description" content="最近写课程项目，涉及数据库的操作，于是开始学习hibernate。 hibernate挺好配置的，但是网上博客什么的，个人感觉都说的太多了，给我一种很麻烦的感觉，但是没办法啊，得用啊！也只好慢慢看那些博客和官方文档（我自己英语太差…没怎么看懂…可能我看的姿势不对吧… 仅限个人理解，望指教~">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/11/IDEA配置Hibernate/绝望.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/11/IDEA配置Hibernate/"/>
+
+
+
+
+
+  <title>IDEA配置Hibernate | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/11/IDEA配置Hibernate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IDEA配置Hibernate</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-11T10:48:24+08:00">
+                2017-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近写课程项目，涉及数据库的操作，于是开始学习hibernate。</p>
+<p>hibernate挺好配置的，但是网上博客什么的，个人感觉都说的太多了，给我一种很麻烦的感觉，但是没办法啊，得用啊！也只好慢慢看那些博客和<a href="http://tools.jboss.org/documentation/" target="_blank" rel="noopener">官方文档</a>（我自己英语太差…没怎么看懂…可能我看的姿势不对吧…</p>
+<p>仅限个人理解，望指教~</p>
+<a id="more"></a>
+<p><img src="绝望.JPG" alt="绝望"></p>
+<h2 id="第一种：在新建项目时，就添加Hibernate"><a href="#第一种：在新建项目时，就添加Hibernate" class="headerlink" title="第一种：在新建项目时，就添加Hibernate"></a>第一种：在新建项目时，就添加Hibernate</h2><h4 id="第一步：新建项目"><a href="#第一步：新建项目" class="headerlink" title="第一步：新建项目"></a>第一步：新建项目</h4><p> 我新建的是一个java web项目…可以换其他的，这个无所谓╮(╯_╰)╭</p>
+<p><img src="new1.png" alt="new1"></p>
+<p>新建项目的时候，记得在下方勾选Hibernate，勾选之后，在下方可以选择Hibernate library，我选择的是下载。  </p>
+<p><img src="new2.png" alt="new2"></p>
+<h4 id="第二步：添加配置"><a href="#第二步：添加配置" class="headerlink" title="第二步：添加配置"></a>第二步：添加配置</h4><p>在 Project Structure中选择Modules，点击Hibernate，选择右边的加号，添加hibernate.cfg.xml文件。（不知道为什么…同样的截图工具，这个界面这么模糊╮(╯_╰)╭）</p>
+<p><img src="structure.png" alt="structure"></p>
+<p>直接Ok，选择默认的就行了 ，最后apply，ok就好~</p>
+<p>可能Problem有个1，如图所示，点进去，点击fix，add就行了~</p>
+<p><img src="structure1.png" alt="structure1"></p>
+<p>如此之后，你会发现，项目下面多了一个lib文件夹，里面是hibernate的jar包。接下来，就是添加数据库了。我用的是本地mysql（其他数据库，就自行解决吧~），一定要记得先启动…</p>
+<p>在界面右侧，有一个Database，点击。如果没有，就在View-&gt;Tool Windows-&gt;Database。</p>
+<p> <img src="db.png" alt="db"></p>
+<p>选择MySQL，进去之后， 填写数据库名称，用户名，密码什么的~最后test，成功界面如下~</p>
+<p><img src="db1.png" alt="db1"></p>
+<p>点击Apply之后，可能会让你输入密码，这个是你以前设置的密码，如果不记得，就选择reset吧~ </p>
+<p><img src="db2.png" alt="db2"></p>
+<p>到此，点击src里面的hibernate.cfg.xml如下进行配置~ 小红框里面那一项，是因为本人电脑上不添加会报错…但是有些人不会..可能是血统原因吧…黑脸.jpg</p>
+<p><img src="structure2.png" alt="structure2"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.url"</span>&gt;</span>jdbc:mysql://localhost:3306/TABLE_NAME<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.driver_class"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.username"</span>&gt;</span>USER<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.password"</span>&gt;</span>PASSWORD<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.dialect"</span>&gt;</span>org.hibernate.dialect.MySQL5InnoDBDialect<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>大写处，根据自己的情况填写…</strong></p>
+<p>此时，可能你会发现com.mysql.jdbc.Driver会报错…那是因为你项目中没有添加mysql-connector包，<a href="https://www.mysql.com/products/connector/" target="_blank" rel="noopener">进行下载</a>,下载之后，可以通过添加jar包进行添加，也可以直接把jar包复制进去，再右击add as library…</p>
+<p>好了，此时，差不多也配置完了~</p>
+<h4 id="第三步：新建entity"><a href="#第三步：新建entity" class="headerlink" title="第三步：新建entity"></a>第三步：新建entity</h4><p> 界面左侧，有一个persistence，如果没有，跟上面database同样的方法，可以找到…点击之后，右击generate persistence mapping -&gt; by database schema</p>
+<p><img src="structure3.png" alt="structure3"></p>
+<p>进去之后， Package代表entity类会放在哪个文件夹下，如果没有，就随便写一个，我写的hibernate（红框1），可能会显红色，但是无所谓，最后idea会帮你新建的，然后选择你要使用的表（红框2），最后如下图红框3所示，进行勾选</p>
+<p><img src="entity.png" alt="entity"></p>
+<p>OK之后，界面如下 </p>
+<p><img src="entity1.png" alt="entity1"></p>
+<p>此时，已经配置完了~具体使用，下篇再讲~</p>
+<h2 id="第二种：新建项目之后，进行添加Hibernate"><a href="#第二种：新建项目之后，进行添加Hibernate" class="headerlink" title="第二种：新建项目之后，进行添加Hibernate"></a>第二种：新建项目之后，进行添加Hibernate</h2><p>新建项目，不勾选Hibernate。</p>
+<p>项目中，Project Structure -&gt; Modules -&gt; + -&gt; Hibernate，之后，就同上了~</p>
+<p><img src="structure4.png" alt="structure4"></p>
+<p>好，到此结束~O(∩_∩)O~~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hibernate/" rel="tag"># Hibernate</a>
+          
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          
+            <a href="/tags/IDEA/" rel="tag"># IDEA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/04/Hexo-Github搭建个人博客步骤/" rel="next" title="Hexo + Github搭建个人博客步骤">
+                <i class="fa fa-chevron-left"></i> Hexo + Github搭建个人博客步骤
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/16/window环境下PyInstaller的安装使用/" rel="prev" title="window环境下PyInstaller的安装使用">
+                window环境下PyInstaller的安装使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一种：在新建项目时，就添加Hibernate"><span class="nav-number">1.</span> <span class="nav-text">第一种：在新建项目时，就添加Hibernate</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步：新建项目"><span class="nav-number">1.0.1.</span> <span class="nav-text">第一步：新建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步：添加配置"><span class="nav-number">1.0.2.</span> <span class="nav-text">第二步：添加配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步：新建entity"><span class="nav-number">1.0.3.</span> <span class="nav-text">第三步：新建entity</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二种：新建项目之后，进行添加Hibernate"><span class="nav-number">2.</span> <span class="nav-text">第二种：新建项目之后，进行添加Hibernate</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

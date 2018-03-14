@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Blog," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一直想弄自己的博客，终于在昨天，成功搭建！ 仅限个人理解，望指教~ 第一步：有一台win10….（本人是用的win10） 第二步：安装git。下载之后，按步骤继续就好~安装完，随意位置点击鼠标右键会有Git GUI Here和Git Bush Here，后面会用到Git Bash。">
+<meta name="keywords" content="Blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo + Github搭建个人博客步骤">
+<meta property="og:url" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/index.html">
+<meta property="og:site_name" content="山己几-Blog">
+<meta property="og:description" content="一直想弄自己的博客，终于在昨天，成功搭建！ 仅限个人理解，望指教~ 第一步：有一台win10….（本人是用的win10） 第二步：安装git。下载之后，按步骤继续就好~安装完，随意位置点击鼠标右键会有Git GUI Here和Git Bush Here，后面会用到Git Bash。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/鼠标右击.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/本地初始状态.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/主题设置1.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/menu1.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/menu2.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/github1.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/github2.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/github3.png">
+<meta property="og:updated_time" content="2017-06-01T03:36:01.473Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo + Github搭建个人博客步骤">
+<meta name="twitter:description" content="一直想弄自己的博客，终于在昨天，成功搭建！ 仅限个人理解，望指教~ 第一步：有一台win10….（本人是用的win10） 第二步：安装git。下载之后，按步骤继续就好~安装完，随意位置点击鼠标右键会有Git GUI Here和Git Bush Here，后面会用到Git Bash。">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/鼠标右击.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/"/>
+
+
+
+
+
+  <title>Hexo + Github搭建个人博客步骤 | 山己几-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">山己几-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/04/Hexo-Github搭建个人博客步骤/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo + Github搭建个人博客步骤</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-04T22:02:14+08:00">
+                2017-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一直想弄自己的博客，终于在昨天，成功搭建！</p>
+<p>仅限个人理解，望指教~</p>
+<h5 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h5><p>有一台win10….（本人是用的win10）</p>
+<h5 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h5><p>安装git。<a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">下载</a>之后，按步骤继续就好~安装完，随意位置点击鼠标右键会有Git GUI Here和Git Bush Here，后面会用到Git Bash。</p>
+<a id="more"></a>
+<p><img src="鼠标右击.png" alt="鼠标右击" width="100" height="100"></p>
+<h5 id="第三步："><a href="#第三步：" class="headerlink" title="第三步："></a>第三步：</h5><p>安装Node.js。同样，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网下载</a>之后，按步骤就好~</p>
+<h5 id="第四步："><a href="#第四步：" class="headerlink" title="第四步："></a>第四步：</h5><p>打开Git Bash。执行命令,通过npm安装Hexo</p>
+<p>由于一些原因，npm在国内的下载速度…，可以进行换源，在此只说一下淘宝的npm分流—-cnpm</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>使用差别，只是将npm换成cnpm。</p>
+<p>npm安装hexo命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>-g代表全局安装。hexo-cli和hexo 我暂时不知道有什么区别….</p>
+<h5 id="第五步："><a href="#第五步：" class="headerlink" title="第五步："></a>第五步：</h5><p>选择一个你觉得最乖的文件夹（此文件夹就是你的本地Blog），打开Git Bash，执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo init</span><br></pre></td></tr></table></figure>
+<p>再执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install</span><br></pre></td></tr></table></figure>
+<p>此时，本地博客已经搭好了~</p>
+<p>执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<p>hexo g 是 generate</p>
+<p>hexo s 是开启本地服务。</p>
+<p>打开浏览器，访问localhos:4000即可…</p>
+<p><img src="本地初始状态.png" alt="本地初始状态" height="300"></p>
+<h5 id="第六步："><a href="#第六步：" class="headerlink" title="第六步："></a>第六步：</h5><p>先讲本地一些配置吧~比如博客名等等~</p>
+<p>打开本地博客文件夹，编辑_config.yml文件，尽量不要使用自带记事本编辑~中文可能出现乱码~</p>
+<p>打开之后，会看到一些参数。下表来自官方文档。<a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">更详细</a></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>网站标题</td>
+</tr>
+<tr>
+<td><code>subtitle</code></td>
+<td>网站副标题</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>网站描述</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>您的名字</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>网站使用的语言</td>
+</tr>
+<tr>
+<td><code>timezone</code></td>
+<td>网站时区。Hexo 默认使用您电脑的时区。<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="noopener">时区列表</a>。比如说：<code>America/New_York</code>, <code>Japan</code>, 和 <code>UTC</code> 。</td>
+</tr>
+</tbody>
+</table>
+<p>本人主要就修改了title 和 author…</p>
+<h5 id="第七步："><a href="#第七步：" class="headerlink" title="第七步："></a>第七步：</h5><p>选择主题~</p>
+<p>在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">Hexo官网</a>或者<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="noopener">Wiki</a>可以找到自己想要的主题~点击主题进入该主题Github界面~在此随意选择一个~进入以下界面</p>
+<p><img src="主题设置1.png" alt="本地初始状态" height="300"></p>
+<p>点击右边clone，复制其中网址xxx，执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone xxx themes/name</span><br></pre></td></tr></table></figure>
+<p>xxx：复制的网址； name：文件夹名字</p>
+<p>主题将clone到themes文件夹下name文件夹中~</p>
+<p>之后，修改博客文件夹下_config.yml中theme属性，设置为主题文件夹名字~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: name</span><br></pre></td></tr></table></figure>
+<p>这是主题设置的一般步骤~</p>
+<p>因为一些主题，会有其他要求，因此，最好的选择是根据相关主题Github界面中README中步骤进行~</p>
+<h5 id="第八步"><a href="#第八步" class="headerlink" title="第八步"></a>第八步</h5><p>添加menu选项~</p>
+<p>主题中，可能自带的只有主页 和 文档两个菜单选项~</p>
+<p><img src="menu1.png" alt="menu1" height="300"></p>
+<p>比如想添加一个菜单选项【关于】</p>
+<p>执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo new page about</span><br></pre></td></tr></table></figure>
+<p>about处填写自己想要的选项名字~</p>
+<p>在source文件夹下，会出现 about 文件夹，里面有index.md。</p>
+<p>然后打开主题所在文件夹，编辑里面的_config.yml，可以看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  ## If your site is put in a subdirectory, set Home as &apos;/child/&apos;</span><br><span class="line">  主页: /</span><br><span class="line">  文档: archives</span><br></pre></td></tr></table></figure>
+<p>此时在下面添加”关于: about”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  ## If your site is put in a subdirectory, set Home as &apos;/child/&apos;</span><br><span class="line">  主页: /</span><br><span class="line">  文档: archives</span><br><span class="line">  关于: about</span><br></pre></td></tr></table></figure>
+<p>再</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<p>就可以发现，选项已经变了~</p>
+<p><img src="menu2.png" alt="menu2" height="300"></p>
+<h5 id="第九步"><a href="#第九步" class="headerlink" title="第九步"></a>第九步</h5><p>写文章~</p>
+<p>其实很简单，就是</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo new title</span><br></pre></td></tr></table></figure>
+<p>title换为文章名字~在主题文件夹下 \source\_posts文件夹下，可看见title.md。</p>
+<p>使用markdown编辑器，进行编辑就好~</p>
+<p>编辑完成之后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<p>访问本地博客，就可以阅读自己的文章啦~</p>
+<h5 id="第十步"><a href="#第十步" class="headerlink" title="第十步"></a>第十步</h5><p>之前都是在本地的~现在试着把博客挂到github上吧~</p>
+<p>默认已经有github账号了~并且通过验证~</p>
+<p>新建仓库</p>
+<p><img src="github1.png" alt="menu2" height="300"></p>
+<p>库名必须是你的github用户名.github.io</p>
+<p>建好库之后，在电脑上创建一个SSH。</p>
+<p>首先检查是否有SSH</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/.ssh</span><br><span class="line">$ ls</span><br></pre></td></tr></table></figure>
+<p>没有的话，创建一个。执行下面命令时，只用敲回车就好~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;your_email@email.com&quot;</span><br></pre></td></tr></table></figure>
+<p>之后，打开C:\Users\p\.ssh\id_rsa.pub，将里面的内容复制~</p>
+<p>然后，github上~在Settings中，设置SSH。</p>
+<p><img src="github2.png" alt="menu2" height="300"></p>
+<p>将复制的内容粘贴在key中</p>
+<p><img src="github3.png" alt="menu2" height="300"></p>
+<p><strong>记得</strong> 进入邮箱，确认验证~！！</p>
+<p>现在Github上的工作就完了~</p>
+<p>回到本地，编辑博客目录下的_config.yml，滚到最下面~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/username/username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>将username换成自己的github用户名~</p>
+<p>最好是复制下来，再修改0…0，冒号是英文冒号，冒号后面有个空格….别踩这个坑….</p>
+<p>再执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo g</span><br><span class="line"><span class="meta">$</span> hexo d</span><br></pre></td></tr></table></figure>
+<p>hexo d 是将本地内容上传到github~</p>
+<p>使用hexo d时</p>
+<p>若没反应：检查_config.yml里面是不是哪个冒号不对，或者哪儿少了空格….</p>
+<p>Error not fount : git：执行命令 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install hexo-deployer-git –-save</span><br></pre></td></tr></table></figure>
+<p>最后 hexo d一次~</p>
+<p>好！此时，终于 完成了~此时访问username.github.io就可以看到你的文章啦~~~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Blog/" rel="tag"># Blog</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/04/自滑动的带指示器ViewPager/" rel="next" title="自滑动的带指示器ViewPager">
+                <i class="fa fa-chevron-left"></i> 自滑动的带指示器ViewPager
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/11/IDEA配置Hibernate/" rel="prev" title="IDEA配置Hibernate">
+                IDEA配置Hibernate <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="山己几" />
+          <p class="site-author-name" itemprop="name">山己几</p>
+           
+              <p class="site-description motion-element" itemprop="description">希望你脸皮厚一点...</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yikai116" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      Weibo
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://amaoamao.github.io/" title="毛神" target="_blank">毛神</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jahojiang.github.io/" title="姜总" target="_blank">姜总</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一步："><span class="nav-number">1.</span> <span class="nav-text">第一步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二步："><span class="nav-number">2.</span> <span class="nav-text">第二步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三步："><span class="nav-number">3.</span> <span class="nav-text">第三步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第四步："><span class="nav-number">4.</span> <span class="nav-text">第四步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第五步："><span class="nav-number">5.</span> <span class="nav-text">第五步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第六步："><span class="nav-number">6.</span> <span class="nav-text">第六步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第七步："><span class="nav-number">7.</span> <span class="nav-text">第七步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第八步"><span class="nav-number">8.</span> <span class="nav-text">第八步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第九步"><span class="nav-number">9.</span> <span class="nav-text">第九步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第十步"><span class="nav-number">10.</span> <span class="nav-text">第十步</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">山己几</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
