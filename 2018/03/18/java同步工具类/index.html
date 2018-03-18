@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="山己几-Blog">
 <meta property="og:description" content="想起啥学啥系列……………. 越看别人的面经，越觉得自己啥都不会，当自己面试的时候什么都回答不上（这大概就是我凉凉的原因吧。 主要看了一些ReentrantLock，Semaphore，CountDownLatch，CyclicBurrier，AQS（AbstractQueueSynchronizer）。 都是一些理解，不涉及源码。 AQS这是一个抽象类，里面主要有一个volatile修饰的int">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T03:04:05.086Z">
+<meta property="og:updated_time" content="2018-03-18T12:07:50.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java同步工具类">
 <meta name="twitter:description" content="想起啥学啥系列……………. 越看别人的面经，越觉得自己啥都不会，当自己面试的时候什么都回答不上（这大概就是我凉凉的原因吧。 主要看了一些ReentrantLock，Semaphore，CountDownLatch，CyclicBurrier，AQS（AbstractQueueSynchronizer）。 都是一些理解，不涉及源码。 AQS这是一个抽象类，里面主要有一个volatile修饰的int">
@@ -334,19 +334,19 @@
 <p>ReentrantLock，Semaphore，CountDownLatch都是使用AQS实现的</p>
 <h5 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h5><p>可重入锁。</p>
 <p>继承Lock接口，内部有一个AQS的实现类（分为公平和非公平），该锁的实现，即是借助AQS中的state变量。</p>
-<p>state == 0：可以获取锁（lock.lock()），获得锁后state++，释放锁时state-（lock.unlock()）（state变化都是通过CAS原子操作的）；</p>
+<p>state == 0：可以获取锁（lock.lock()），获得锁后state++，释放锁时state- -（lock.unlock()）（state变化都是通过CAS原子操作的）；</p>
 <p>state != 0：线程进入Node链表队列进行等待（如果是使用可中断，当外部调用中断指令时，直接从链表中删除该线程即可）</p>
 <h5 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h5><p>信号量，用于控制访问的线程数量。如某车库最多停放三辆车。</p>
 <p>同样是借助AQS实现，借车库的例子，内部state变量初始化为3</p>
-<p>state &gt; 0：车辆进入，并且state–（smp.acquire();），车辆出去后state++（smp.release();），并且唤醒等待队列中的线程（原子操作）</p>
+<p>state &gt; 0：车辆进入，并且state- -（smp.acquire();），车辆出去后state++（smp.release();），并且唤醒等待队列中的线程（原子操作）</p>
 <p>state == 0：进入等待队列</p>
 <h5 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h5><p>减数器，用于等待特定数量n的线程。</p>
 <p>借助AQS实现。state初始化为n。</p>
-<p>每次调用cdl.countDown()，state–</p>
+<p>每次调用cdl.countDown()，state- -</p>
 <p>cdl.await()，等待state == 0后才继续执行。</p>
 <p>#####CyclicBurrier</p>
 <p>栅栏，借助ReentrantLock实现。内部有一个int类型变量count</p>
-<p>每次进行cb.await()方法时，通过内部的lock加锁，对count–，并且将线程阻塞</p>
+<p>每次进行cb.await()方法时，通过内部的lock加锁，对count- -，并且将线程阻塞</p>
 <p>当count == 0时，对所有阻塞的线程进行signal唤醒</p>
 
       
