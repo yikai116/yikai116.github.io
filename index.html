@@ -257,6 +257,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/18/java同步工具类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/18/java同步工具类/" itemprop="url">java同步工具类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-18T11:04:05+08:00">
+                2018-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>想起啥学啥系列…………….</p>
+<p>越看别人的面经，越觉得自己啥都不会，当自己面试的时候什么都回答不上（这大概就是我凉凉的原因吧。</p>
+<p>主要看了一些ReentrantLock，Semaphore，CountDownLatch，CyclicBurrier，AQS（AbstractQueueSynchronizer）。</p>
+<p>都是一些理解，不涉及源码。</p>
+<h5 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h5><p>这是一个抽象类，里面主要有一个volatile修饰的int state变量，以及一个双向Node链表。</p>
+<p>state变量的变化都是通过CAS原子性进行操作的</p>
+<p>Node链表，每个节点存放的是线程信息。</p>
+<p>ReentrantLock，Semaphore，CountDownLatch都是使用AQS实现的</p>
+<h5 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h5><p>可重入锁。</p>
+<p>继承Lock接口，内部有一个AQS的实现类（分为公平和非公平），该锁的实现，即是借助AQS中的state变量。</p>
+<p>state == 0：可以获取锁（lock.lock()），获得锁后state++，释放锁时state-（lock.unlock()）（state变化都是通过CAS原子操作的）；</p>
+<p>state != 0：线程进入Node链表队列进行等待（如果是使用可中断，当外部调用中断指令时，直接从链表中删除该线程即可）</p>
+<h5 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h5><p>信号量，用于控制访问的线程数量。如某车库最多停放三辆车。</p>
+<p>同样是借助AQS实现，借车库的例子，内部state变量初始化为3</p>
+<p>state &gt; 0：车辆进入，并且state–（smp.acquire();），车辆出去后state++（smp.release();），并且唤醒等待队列中的线程（原子操作）</p>
+<p>state == 0：进入等待队列</p>
+<h5 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h5><p>减数器，用于等待特定数量n的线程。</p>
+<p>借助AQS实现。state初始化为n。</p>
+<p>每次调用cdl.countDown()，state–</p>
+<p>cdl.await()，等待state == 0后才继续执行。</p>
+<p>#####CyclicBurrier</p>
+<p>栅栏，借助ReentrantLock实现。内部有一个int类型变量count</p>
+<p>每次进行cb.await()方法时，通过内部的lock加锁，对count–，并且将线程阻塞</p>
+<p>当count == 0时，对所有阻塞的线程进行signal唤醒</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/jvm锁优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -877,131 +1020,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/12/剑指offer-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="山己几">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山己几-Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/12/剑指offer-2/" itemprop="url">剑指offer-2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T20:45:58+08:00">
-                2018-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>继续~</p>
-<p>今天的题好几道都是斐波那契数列变形~</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/12/剑指offer-2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1052,7 +1070,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
