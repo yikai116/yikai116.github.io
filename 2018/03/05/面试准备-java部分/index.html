@@ -103,7 +103,7 @@
 <meta property="og:description" content="想到啥写啥~ 还有很多嫌麻烦没写的….">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/03/05/面试准备-java部分/throwable.jpg">
-<meta property="og:updated_time" content="2018-03-13T12:45:17.934Z">
+<meta property="og:updated_time" content="2018-03-19T16:31:41.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试准备-java部分">
 <meta name="twitter:description" content="想到啥写啥~ 还有很多嫌麻烦没写的….">
@@ -396,6 +396,9 @@
 <p>###进程间通信</p>
 <p>管道，共享内存，文件，网络，信号量</p>
 <h3 id="transient关键字"><a href="#transient关键字" class="headerlink" title="transient关键字"></a>transient关键字</h3><p>Serialable时，被该关键字修饰的变量不进行序列化</p>
+<h3 id="HashMap和Hashtable区别"><a href="#HashMap和Hashtable区别" class="headerlink" title="HashMap和Hashtable区别"></a>HashMap和Hashtable区别</h3><p>HashMap：非线程安全，key和value都可以为null，重新计算hash值，HashMap扩容时，增加为大于当前size的最小的2的n次幂</p>
+<p>Hashtable：线程安全，key和value都不能为null，采用key的原有hashCode，扩容时容量变为两倍再+1</p>
+<p><code>ArrayList扩容时增加为1.5倍</code></p>
 
       
     </div>
@@ -616,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java注解"><span class="nav-number">1.</span> <span class="nav-text">java注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-Throwable"><span class="nav-number">2.</span> <span class="nav-text">java Throwable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGlib和JDKProxy"><span class="nav-number">3.</span> <span class="nav-text">CGlib和JDKProxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器"><span class="nav-number">4.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java内存模型"><span class="nav-number">5.</span> <span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收"><span class="nav-number">6.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new和反射的区别"><span class="nav-number">7.</span> <span class="nav-text">new和反射的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transient关键字"><span class="nav-number">8.</span> <span class="nav-text">transient关键字</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java注解"><span class="nav-number">1.</span> <span class="nav-text">java注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-Throwable"><span class="nav-number">2.</span> <span class="nav-text">java Throwable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGlib和JDKProxy"><span class="nav-number">3.</span> <span class="nav-text">CGlib和JDKProxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器"><span class="nav-number">4.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java内存模型"><span class="nav-number">5.</span> <span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收"><span class="nav-number">6.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new和反射的区别"><span class="nav-number">7.</span> <span class="nav-text">new和反射的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transient关键字"><span class="nav-number">8.</span> <span class="nav-text">transient关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap和Hashtable区别"><span class="nav-number">9.</span> <span class="nav-text">HashMap和Hashtable区别</span></a></li></ol></div>
             
 
           </div>

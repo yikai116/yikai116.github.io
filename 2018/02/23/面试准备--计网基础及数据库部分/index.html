@@ -104,7 +104,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/02/23/面试准备--计网基础及数据库部分/tcp报文格式.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/23/面试准备--计网基础及数据库部分/udp报文格式.png">
-<meta property="og:updated_time" content="2018-03-12T14:41:21.747Z">
+<meta property="og:updated_time" content="2018-03-20T07:01:30.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试准备--计网基础及数据库部分">
 <meta name="twitter:description" content="记录一下为面试准备的知识。">
@@ -418,6 +418,15 @@
 <li>如果服务器已经没有要发送的数据，则释放TCP连接，向客户端发送报文：令FIN=1，ACK=1,确认号ack =u+1，自己的序号seq = w（w可能等于v也可能大于v），服务器进入LAST-ACK状态。</li>
 <li>客户端收到服务器的连接释放报文后，对该报文发出确认，令ACK=1,确认号ack=w+1，自己的序号seq=u+1，发送此报文后，处于TIME_WAIT状态，等待2个msl时间后，进入CLOSED状态。</li>
 <li>服务器收到客户端的确认后，也进入CLOSED状态并撤销传输控制块。</li>
+</ul>
+<blockquote>
+<p>RST包响应情况</p>
+</blockquote>
+<ul>
+<li>端口未打开</li>
+<li>连接已关闭，客户端再向服务器端发信息</li>
+<li>请求超时，如客户端设置请求超时时间为50ms，但是客户端发送给服务器syn，服务器70ms后再响应客户端，客户端会发送RST包，表示超时</li>
+<li>服务器端提前关闭</li>
 </ul>
 <blockquote>
 <p>打开网页到页面显示之间的过程（涵盖了各个方面，DNS解析过程，Nginx请求转发、连接建立和保持过程、浏览器内容渲染过程，考虑的越详细越好）.</p>
