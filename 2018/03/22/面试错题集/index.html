@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux," />
+  <meta name="keywords" content="面试," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="觉得自己不适合这个专业……….. netstat命令：  -a (all)显示所有选项，默认不显示LISTEN相关 -t (tcp)仅显示tcp相关选项 -u (udp)仅显示udp相关选项 -n 拒绝显示别名，能显示数字的全部转化成数字。 -l 仅列出有在 Listen (监听) 的服務状态 -p 显示建立相关链接的程序名 -r 显示路由信息，路由表 -e 显示扩展信息，例如uid等 -s 按各">
-<meta name="keywords" content="linux">
+<meta name="description" content="大概面试的时候，脑袋被门夹了吧……… 记录下来，勉励自己…">
+<meta name="keywords" content="面试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux部分端口相关命令">
-<meta property="og:url" content="http://yoursite.com/2017/10/02/Linux部分端口相关命令/index.html">
+<meta property="og:title" content="面试错题集">
+<meta property="og:url" content="http://yoursite.com/2018/03/22/面试错题集/index.html">
 <meta property="og:site_name" content="山己几-Blog">
-<meta property="og:description" content="觉得自己不适合这个专业……….. netstat命令：  -a (all)显示所有选项，默认不显示LISTEN相关 -t (tcp)仅显示tcp相关选项 -u (udp)仅显示udp相关选项 -n 拒绝显示别名，能显示数字的全部转化成数字。 -l 仅列出有在 Listen (监听) 的服務状态 -p 显示建立相关链接的程序名 -r 显示路由信息，路由表 -e 显示扩展信息，例如uid等 -s 按各">
+<meta property="og:description" content="大概面试的时候，脑袋被门夹了吧……… 记录下来，勉励自己…">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-06T09:40:44.040Z">
+<meta property="og:updated_time" content="2018-03-23T02:24:27.496Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux部分端口相关命令">
-<meta name="twitter:description" content="觉得自己不适合这个专业……….. netstat命令：  -a (all)显示所有选项，默认不显示LISTEN相关 -t (tcp)仅显示tcp相关选项 -u (udp)仅显示udp相关选项 -n 拒绝显示别名，能显示数字的全部转化成数字。 -l 仅列出有在 Listen (监听) 的服務状态 -p 显示建立相关链接的程序名 -r 显示路由信息，路由表 -e 显示扩展信息，例如uid等 -s 按各">
+<meta name="twitter:title" content="面试错题集">
+<meta name="twitter:description" content="大概面试的时候，脑袋被门夹了吧……… 记录下来，勉励自己…">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/02/Linux部分端口相关命令/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/22/面试错题集/"/>
 
 
 
 
 
-  <title>Linux部分端口相关命令 | 山己几-Blog</title>
+  <title>面试错题集 | 山己几-Blog</title>
   
 
 
@@ -257,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/02/Linux部分端口相关命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/22/面试错题集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="山己几">
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux部分端口相关命令</h1>
+          <h1 class="post-title" itemprop="name headline">面试错题集</h1>
         
 
         <div class="post-meta">
@@ -286,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T02:46:36+08:00">
-                2017-10-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T16:14:32+08:00">
+                2018-03-22
               </time>
             
 
@@ -324,27 +324,33 @@
       
 
       
-        <p>觉得自己不适合这个专业………..</p>
-<p>netstat命令：</p>
-<ol>
-<li>-a (all)显示所有选项，默认不显示LISTEN相关</li>
-<li>-t (tcp)仅显示tcp相关选项</li>
-<li>-u (udp)仅显示udp相关选项</li>
-<li>-n 拒绝显示别名，能显示数字的全部转化成数字。</li>
-<li>-l 仅列出有在 Listen (监听) 的服務状态</li>
-<li>-p 显示建立相关链接的程序名</li>
-<li>-r 显示路由信息，路由表</li>
-<li>-e 显示扩展信息，例如uid等</li>
-<li>-s 按各个协议进行统计</li>
-<li>-c 每隔一个固定时间，执行该netstat命令</li>
-</ol>
-<p>显示tcp相关端口占用情况</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -lnt</span><br></pre></td></tr></table></figure>
-<p>查看到端口号之后，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i:端口号</span><br></pre></td></tr></table></figure>
-<p>得到端口号的pid</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep pid</span><br></pre></td></tr></table></figure>
-<p>得到端口号占用的进程详细情况</p>
+        <p>大概面试的时候，脑袋被门夹了吧………</p>
+<p>记录下来，勉励自己…</p>
+<a id="more"></a>
+<p>某面试，自我介绍完就是算法…直接蒙了…</p>
+<blockquote>
+<p>找出一个数组中，和最大的一个连续子数组</p>
+<p>比如1,-2,3,4,5,-10，和最大为12</p>
+</blockquote>
+<p>思路：遍历数组，将数组元素加入某一个队列，并且将每次加进去之后，计算当前队列总和，与保存的最大值比较，当当前队列中总和为负值的时候，队列清空。面试的时候想复杂了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Array;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">20</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            array[i] = <span class="keyword">new</span> Random().nextInt() % <span class="number">10</span>;</span><br><span class="line">            System.out.print(array[i] + <span class="string">"\t"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(getMax(array));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getMax</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = Integer.MIN_VALUE;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            queue.add(array[i]);</span><br><span class="line">            temp += array[i];</span><br><span class="line">            <span class="keyword">if</span> (temp &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                queue.clear();</span><br><span class="line">                temp = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (temp &gt; max)</span><br><span class="line">                max = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (queue.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            stack.push(queue.poll());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (stack.size() &gt; <span class="number">0</span> &amp;&amp; stack.peek() &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            max -= stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"\nsize："</span> + stack.size());</span><br><span class="line">        <span class="keyword">while</span> (stack.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.print(stack.pop() + <span class="string">"\t"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Get请求，强行在body中加数据，服务器端是否能拿到数据</p>
+</blockquote>
+<p>能</p>
+<blockquote>
+<p>常见的对称加密算法和非对称加密算法</p>
+</blockquote>
+<p>对称加密算法：DES，3DES，AES，具体–&gt;<a href="https://blog.csdn.net/u013126379/article/details/51881856" target="_blank" rel="noopener">https://blog.csdn.net/u013126379/article/details/51881856</a></p>
+<p>非对称加密算法：RSA</p>
+<blockquote>
+<p>redis zset 跳跃表的实现</p>
+</blockquote>
+<p>发现一篇简单易懂的博客–&gt;<a href="https://blog.csdn.net/odailidong/article/details/52782753\" target="_blank" rel="noopener">https://blog.csdn.net/odailidong/article/details/52782753\</a></p>
+<p>跳跃表，简而言之，则是将链表中，取出部分节点，重新再构成一个链表，从而各个链表成为层状结构，每次进行search或者insert等操作时，从最上层链表开始查找，找到节点所在区间之后，从该区间下降一个层次，再寻找，知道找到位置或者表中不存在该元素。</p>
+<blockquote>
+<p>红黑树</p>
+</blockquote>
 
       
     </div>
@@ -362,7 +368,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/面试/" rel="tag"># 面试</a>
           
         </div>
       
@@ -375,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/29/Vue封装Menu组件-利用iview/" rel="next" title="Vue封装Menu组件--利用iview">
-                <i class="fa fa-chevron-left"></i> Vue封装Menu组件--利用iview
+              <a href="/2018/03/18/java同步工具类/" rel="next" title="java同步工具类">
+                <i class="fa fa-chevron-left"></i> java同步工具类
               </a>
             
           </div>
@@ -384,10 +390,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/03/SSM框架/" rel="prev" title="SSM框架">
-                SSM框架 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
