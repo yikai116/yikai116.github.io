@@ -257,6 +257,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/秋招学习记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="山己几">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山己几-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/14/秋招学习记录/" itemprop="url">秋招学习记录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-14T19:20:52+08:00">
+                2018-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>面试也是学习~回答不上的，都是我应该学习的</p>
+<p>设计高并发服务器</p>
+<ol>
+<li>负载均衡（nginx：ip_hash，url_hash，权重，轮询）</li>
+<li>缓存（缓存同步的问题-不同步：通过负载均衡设置某类请求只能达到某个服务器；同步：互相发消息）</li>
+<li>限流（流量不要一次性到达数据库，直接截断或者存入队列）</li>
+<li>数据库的缓存（类似mybatis缓存，根据sql语句和返回结果，存入hashmap中，更新）</li>
+<li>数据库架构设计（分库分表，读写分离-主从，优化数据表结构-字段的长度，主键，外键之类的）</li>
+</ol>
+<p>net filter：一种，可以在应用层实现ip层钩子的东西，可以用来查看ip层具体发了那些包</p>
+<p>java wait和sleep区别：sleep不释放锁，wait释放锁，wait和notify联用，必须在有锁的情况下使用（面试回答到锁层面，但是记反了）</p>
+<p>字符串，找出第一个只出现一次的字符，两种思路，1、维持两个list，一个存只出现了一次的字符list1，一个存出现了多次的字符list2，遍历一次字符串，如果出现的字符没有在list2中，并且在list1中也没有，则加入list1，如果list1中存在，则将之放到list2；已经在list2中的，直接忽略跳过 2、动态规划，维持一个两维数组int[input.length][26]，遍历一次字符串，数组每一行int[i]，表示0-i的子字符串中每个字母出现的次数，遍历完成后，找出以后一行中第一个1所对应的字符就ok，思路是这样，因为是第一个出现的字符，所以还需要再加一部分代码。第二种方法更加全面，比如题改成第一个出现<strong>两次</strong>的字符….可惜我在面试的时候没说出来这方面~ 面试官似乎不是很满意我的解法</p>
+<p>url如下：xxxx/contextPath(某个具体的webapp名字)/servletPath;</p>
+<p>Spring+tomcat收到请求详细的行为情况：tomcat中，Connector收到请求（创建request和response对象），将请求交给Connector对应的Engine进行处理，Engine根据host找到具体的Host处理器，Host根据url中的contextPath找到具体Context（Context包含某个应用下的所有servlet，可以理解成那个应用），Context再根据servletPath找到对应的Wrapper（即具体的servlet），执行wrapper中的代码即可~，最后一层一层的返回</p>
+<p>tomcat和Spring的理解：tomcat是servlet容器，Spring是java bean的容器；写完项目之后，将war包放入tomcat webapp目录下，tomcat会进行加载。</p>
+<p>问的很广，很多东西其实可以聊很多的，但是回答的不够深入（下次注意）</p>
+<p>说下没回答上的问题</p>
+<p>–java wait和sleep区别：sleep不释放锁，wait释放锁，wait和notify联用，必须在有锁的情况下使用（面试回答到锁层面，但是记反了）</p>
+<p>–linux 硬中断和软中断的区别</p>
+<p>–wait和notify实现消费者生产者模型（…扎心，这么简单的题，似乎面试官不是很满意）</p>
+<p>–字符串，找出第一个只出现一次的字符，两种思路，1、维持两个list，一个存只出现了一次的字符list1，一个存出现了多次的字符list2，遍历一次字符串，如果出现的字符没有在list2中，并且在list1中也没有，则加入list1，如果list1中存在，则将之放到list2；已经在list2中的，直接忽略跳过 2、动态规划，维持一个两维数组int[input.length][26]，遍历一次字符串，数组每一行int[i]，表示0-i的子字符串中每个字母出现的次数，遍历完成后，找出以后一行中第一个1所对应的字符就ok，思路是这样，因为是第一个出现的字符，所以还需要再加一部分代码。第二种方法更加全面，比如题改成第一个出现<strong>两次</strong>的字符….可惜我在面试的时候没说出来这方面~ 面试官似乎不是很满意我的解法</p>
+<p>–消费者模式，利用回调实现（其实可以写出来的，但是因为我说了一句经常接触的是比较简单的单例，工厂等模式..面试官就让我写单例模式了，到这时候，面试官已经把我拒了，仅仅是让我随便写写而已</p>
+<p>–网络五层模型，链路层和物理层，具体怎么实现的..（问蒙了，这部分的确不知道，面试官提示了下中断</p>
+<p>–netfilter（听到直接懵逼三连…</p>
+<p>–线程状态改变</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/剑指offer-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -867,130 +1011,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/剑指offer-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="山己几">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山己几-Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/14/剑指offer-4/" itemprop="url">剑指offer-4</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T11:38:21+08:00">
-                2018-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>加油加油加油</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/14/剑指offer-4/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1041,7 +1061,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
