@@ -331,7 +331,7 @@
             <p>面试也是学习~回答不上的，都是我应该学习的</p>
 <p>设计高并发服务器</p>
 <ol>
-<li>负载均衡（nginx：ip_hash，url_hash，权重，轮询）</li>
+<li>负载均衡（nginx，ip_hash，url_hash，权重，轮询）</li>
 <li>缓存（缓存同步的问题-不同步：通过负载均衡设置某类请求只能达到某个服务器；同步：互相发消息）</li>
 <li>限流（流量不要一次性到达数据库，直接截断或者存入队列）</li>
 <li>数据库的缓存（类似mybatis缓存，根据sql语句和返回结果，存入hashmap中，更新）</li>
@@ -343,6 +343,16 @@
 <p>url如下：xxxx/contextPath(某个具体的webapp名字)/servletPath;</p>
 <p>Spring+tomcat收到请求详细的行为情况：tomcat中，Connector收到请求（创建request和response对象），将请求交给Connector对应的Engine进行处理，Engine根据host找到具体的Host处理器，Host根据url中的contextPath找到具体Context（Context包含某个应用下的所有servlet，可以理解成那个应用），Context再根据servletPath找到对应的Wrapper（即具体的servlet），执行wrapper中的代码即可~，最后一层一层的返回</p>
 <p>tomcat和Spring的理解：tomcat是servlet容器，Spring是java bean的容器；写完项目之后，将war包放入tomcat webapp目录下，tomcat会进行加载。</p>
+<p>——————–2018/09/26——————–</p>
+<p>O(n)的排序方法：桶排序（空间消耗大）；数组中无序，但是值是1-n，可以使用角标交换法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i=0;i&lt;vec1.size();)&#123;</span><br><span class="line">        if(vec1[i]==i+1)</span><br><span class="line">            i++;</span><br><span class="line">        else swap(vec1[i],vec1[vec1[i]-1]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>大数据，找中位数：划分区域，然后读取数据，数据根据大小，放在某个特定区域中，计算所有区域总和n，从小区域到大区域数量相加，直到达到n/2，说明中位数处于当前区域，然后在该区域中寻找第x个数（方法与上述相同）</p>
+<p>java中，多线程，其中一个线程崩掉，程序是否会崩掉？不会（单从线程和进程之间来讲，某个进程之中，一个线程崩掉，会导致整个进程崩掉，jvm中进行了特殊的处理（猜测是大的try catch包起来），线程崩掉不会影响其他线程）</p>
+<p>数据库索引知识（具体到索引存储，加载到内存中，检索速度巴拉巴拉一堆）</p>
+<p>mysql事务默认隔离级别-可重复读；使用mvcc解决幻读问题；注：可重复读隔离级别 不能解决幻读，mysql中使用mvcc达到解决幻读的问题</p>
+<p>mysql 会对sql中where子句根据索引情况进行优化</p>
+<p>linux中，查看共享内存情况 ipcs -m；查看端口占用（进程占用哪些套接字）netstat；查看端口被哪个进程占用 lsof；输出文本最后100行 且需要进行滚动（-f效果）：tail -f -n 100 xxx</p>
+<p>hashmap添加元素：为什么添加在链表开头</p>
 
           
         
