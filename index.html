@@ -343,6 +343,10 @@
 <p>url如下：xxxx/contextPath(某个具体的webapp名字)/servletPath;</p>
 <p>Spring+tomcat收到请求详细的行为情况：tomcat中，Connector收到请求（创建request和response对象），将请求交给Connector对应的Engine进行处理，Engine根据host找到具体的Host处理器，Host根据url中的contextPath找到具体Context（Context包含某个应用下的所有servlet，可以理解成那个应用），Context再根据servletPath找到对应的Wrapper（即具体的servlet），执行wrapper中的代码即可~，最后一层一层的返回</p>
 <p>tomcat和Spring的理解：tomcat是servlet容器，Spring是java bean的容器；写完项目之后，将war包放入tomcat webapp目录下，tomcat会进行加载。</p>
+<p>——————–2018/09/25——————–</p>
+<p>大顶堆：建堆消耗的时间复杂度（考虑每层个数，以及每层进行比较交换的次数，答案是接近O(n)，考计算过程）</p>
+<p>找图中两点最短距离：深度搜索（最简单的方法），Dijkstra算法（注意终止条件），找出路径，可能a到b的最短路径会有多条，递归思想，借助已知条件（已知a到其他点（比b距离更短的点）的距离）</p>
+<p>五只羊，全是母羊，初始为0岁，每只羊在第2,3,4岁时会生一只小羊（羊寿命为5岁），求n年之后会有多少只羊（斐波那契数列思想） Sn = Sn0 + Sn1 + Sn2 + Sn3 + Sn4，Sn0 = S(n-1)2 + S(n-1)3 + S(n-1)4  Sn1 = S(n-1)0 依次推下去 {0 1 2 3 4代表第几岁的羊}</p>
 <p>——————–2018/09/26——————–</p>
 <p>O(n)的排序方法：桶排序（空间消耗大）；数组中无序，但是值是1-n，可以使用角标交换法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i=0;i&lt;vec1.size();)&#123;</span><br><span class="line">        if(vec1[i]==i+1)</span><br><span class="line">            i++;</span><br><span class="line">        else swap(vec1[i],vec1[vec1[i]-1]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -352,7 +356,7 @@
 <p>mysql事务默认隔离级别-可重复读；使用mvcc解决幻读问题；注：可重复读隔离级别 不能解决幻读，mysql中使用mvcc达到解决幻读的问题</p>
 <p>mysql 会对sql中where子句根据索引情况进行优化</p>
 <p>linux中，查看共享内存情况 ipcs -m；查看端口占用（进程占用哪些套接字）netstat；查看端口被哪个进程占用 lsof；输出文本最后100行 且需要进行滚动（-f效果）：tail -f -n 100 xxx</p>
-<p>hashmap添加元素：为什么添加在链表开头</p>
+<p>hashmap添加元素：为什么添加在链表开头 存在一种局部性，当前node的使用几率变大，node放在链表开头是为了下次找node时，不用遍历链表。</p>
 
           
         
